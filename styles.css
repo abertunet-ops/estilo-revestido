@@ -1962,80 +1962,21 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   align-items: start;
 }
 
-/* Escena 3D */
+/* Escena perspectiva */
 .sim-scene-wrap {
   background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 20px;
-  min-height: 360px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
-.sim-scene {
-  perspective: 1000px;
-  perspective-origin: 55% 38%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 80px;
-}
-.sim-room {
-  position: relative;
-  width: var(--rW, 320px);
-  height: var(--rH, 240px);
-  transform-style: preserve-3d;
-  transform: rotateX(-14deg) rotateY(-22deg);
-  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.sim-face {
-  position: absolute;
-  background-size: cover;
-  background-position: center;
-  background-color: #1a1612;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-
-/* Back wall */
-#simFaceBack {
-  top: 0; left: 0;
-  width: var(--rW, 320px);
-  height: var(--rH, 240px);
-  transform: translateZ(calc(-1 * var(--rD, 300px)));
-  background-color: #1c1814;
-}
-
-/* Floor */
-#simFaceFloor {
-  top: var(--rH, 240px);
-  left: 0;
-  width: var(--rW, 320px);
-  height: var(--rD, 300px);
-  transform-origin: top center;
-  transform: rotateX(-90deg);
-  background-color: #111009;
-}
-
-/* Left wall */
-#simFaceLeft {
-  top: 0; left: 0;
-  width: var(--rD, 300px);
-  height: var(--rH, 240px);
-  transform-origin: left center;
-  transform: rotateY(-90deg);
-  background-color: #181410;
-}
-
-/* Ceiling */
-#simFaceCeil {
-  top: 0; left: 0;
-  width: var(--rW, 320px);
-  height: var(--rD, 300px);
-  transform-origin: top center;
-  transform: rotateX(-90deg);
-  background-color: #0d0c0a;
+#simCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
 }
 
 .sim-scene-hint {

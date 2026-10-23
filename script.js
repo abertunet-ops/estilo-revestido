@@ -1193,11 +1193,6 @@ function initSimulator() {
   const thumbTecho   = document.getElementById('thumbTecho');
   const thumbPiso    = document.getElementById('thumbPiso');
   const thumbZocalo  = document.getElementById('thumbZocalo');
-  const room         = document.getElementById('simRoom');
-  const faceBack     = document.getElementById('simFaceBack');
-  const faceFloor    = document.getElementById('simFaceFloor');
-  const faceLeft     = document.getElementById('simFaceLeft');
-  const faceCeil     = document.getElementById('simFaceCeil');
   const budget       = document.getElementById('simBudget');
   const combosList   = document.getElementById('simCombosList');
   const waBtn        = document.getElementById('simWaBtn');
@@ -1268,57 +1263,149 @@ function initSimulator() {
     combosList.appendChild(btn);
   });
 
-  // --- update 3D room ---
-  function getPx(meters, scale) {
-    return Math.min(Math.max(meters * scale, 40), 420);
+  // --- Canvas image cache & renderer ---
+  const _imgCache = {};
+  function simGetImg(src) {
+    if (!src) return null;
+    if (_imgCache[src]) return _imgCache[src].complete ? _imgCache[src] : null;
+    const img = new Image();
+    _imgCache[src] = img;
+    img.onload  = () => renderSimCanvas(simCanvas, ancho(), largo(), alto(), selParedes.value, selTecho.value, selPiso.value);
+    img.onerror = () => {};
+    img.src = src;
+    return null;
   }
 
+  const simCanvas = document.getElementById('simCanvas');
+
+  function ancho() { return parseFloat(anchoIn.value) || 4; }
+  function largo() { return parseFloat(largoIn.value) || 5; }
+  function alto()  { return parseFloat(altoIn.value)  || 2.6; }
+
   function updateRoom() {
-    const ancho = parseFloat(anchoIn.value) || 4;
-    const largo = parseFloat(largoIn.value) || 5;
-    const alto  = parseFloat(altoIn.value)  || 2.6;
-
-    // Scale so the room fits nicely (target ~320px wide)
-    const scale = Math.min(320 / ancho, 260 / alto, 300 / largo, 70);
-    const rW = getPx(ancho, scale);
-    const rH = getPx(alto,  scale);
-    const rD = getPx(largo, scale);
-
-    room.style.setProperty('--rW', rW + 'px');
-    room.style.setProperty('--rH', rH + 'px');
-    room.style.setProperty('--rD', rD + 'px');
-
-    // Apply textures
-    const facePared  = SIM_CATALOG[selParedes.value];
-    const faceTecho  = SIM_CATALOG[selTecho.value];
-    const facePiso   = SIM_CATALOG[selPiso.value];
-
-    const applyFace = (el, prod) => {
-      if (prod && prod.img) {
-        el.style.backgroundImage = `url('${prod.img}')`;
-      } else {
-        el.style.backgroundImage = 'none';
-      }
-    };
-
-    applyFace(faceBack,  facePared);
-    applyFace(faceLeft,  facePared);
-    applyFace(faceCeil,  faceTecho);
-    applyFace(faceFloor, facePiso);
+    renderSimCanvas(simCanvas, ancho(), largo(), alto(), selParedes.value, selTecho.value, selPiso.value);
 
     // Thumbnails
-    const applyThumb = (thumb, prod) => {
+    const applyThumb = (thumb, key) => {
+      const prod = SIM_CATALOG[key];
       if (prod && prod.img) {
         thumb.style.backgroundImage = `url('${prod.img}')`;
+        thumb.style.backgroundColor = '';
       } else {
         thumb.style.backgroundImage = 'none';
-        thumb.style.background = '#181510';
+        thumb.style.backgroundColor = '#181510';
       }
     };
-    applyThumb(thumbParedes, SIM_CATALOG[selParedes.value]);
-    applyThumb(thumbTecho,   SIM_CATALOG[selTecho.value]);
-    applyThumb(thumbPiso,    SIM_CATALOG[selPiso.value]);
-    applyThumb(thumbZocalo,  SIM_CATALOG[selZocalo.value]);
+    applyThumb(thumbParedes, selParedes.value);
+    applyThumb(thumbTecho,   selTecho.value);
+    applyThumb(thumbPiso,    selPiso.value);
+    applyThumb(thumbZocalo,  selZocalo.value);
+  }
+
+  function renderSimCanvas(cv, aw, dpt, ht, wallKey, ceilKey, floorKey) {
+    if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const W = cv.width, H = cv.height;
+
+    const wallProd  = SIM_CATALOG[wallKey];
+    const ceilProd  = SIM_CATALOG[ceilKey];
+    const floorProd = SIM_CATALOG[floorKey];
+    const wallImg  = wallProd  ? simGetImg(wallProd.img)  : null;
+    const ceilImg  = ceilProd  ? simGetImg(ceilProd.img)  : null;
+    const floorImg = floorProd ? simGetImg(floorProd.img) : null;
+
+    // Clear
+    ctx.fillStyle = '#090805';
+    ctx.fillRect(0, 0, W, H);
+
+    // Back wall rect — size proportional to room dimensions
+    const maxBwW = W * 0.52, maxBwH = H * 0.60;
+    const s = Math.min(maxBwW / aw, maxBwH / ht);
+    const bwW = aw * s, bwH = ht * s;
+    const bwL = (W - bwW) / 2;
+    const bwR = bwL + bwW;
+    const bwT = (H - bwH) * 0.38;   // slightly above centre (eye level ~38%)
+    const bwB = bwT + bwH;
+
+    // One-point perspective faces
+    // Floor — back edge = back wall bottom, front edge = canvas bottom
+    const floor    = [{x:bwL,y:bwB},{x:bwR,y:bwB},{x:W*1.05,y:H*1.05},{x:-W*0.05,y:H*1.05}];
+    // Left wall — inner edge = back wall left, outer edge = canvas left
+    const leftWall = [{x:0,y:0},{x:bwL,y:bwT},{x:bwL,y:bwB},{x:0,y:H}];
+    // Right wall — inner edge = back wall right, outer edge = canvas right
+    const rightWall= [{x:bwR,y:bwT},{x:W,y:0},{x:W,y:H},{x:bwR,y:bwB}];
+    // Ceiling — back edge = back wall top, front edge = canvas top
+    const ceiling  = [{x:0,y:0},{x:W,y:0},{x:bwR,y:bwT},{x:bwL,y:bwT}];
+    // Back wall — straight rectangle
+    const backWall = [{x:bwL,y:bwT},{x:bwR,y:bwT},{x:bwR,y:bwB},{x:bwL,y:bwB}];
+
+    // Darken side faces slightly vs back wall
+    const _fill = (poly, img, dark) => simFillQuad(ctx, poly, img, dark);
+    _fill(ceiling,   ceilImg,  '#0f0e0c');
+    _fill(leftWall,  wallImg,  '#141210');
+    _fill(rightWall, wallImg,  '#161412');
+    _fill(backWall,  wallImg,  '#1d1a15');
+    _fill(floor,     floorImg, '#0c0b09');
+
+    // Gold edge lines
+    ctx.strokeStyle = 'rgba(201,162,94,0.22)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.strokeRect(bwL + 0.5, bwT + 0.5, bwW, bwH);
+    ctx.moveTo(bwL, bwT); ctx.lineTo(0, 0);
+    ctx.moveTo(bwR, bwT); ctx.lineTo(W, 0);
+    ctx.moveTo(bwL, bwB); ctx.lineTo(0, H);
+    ctx.moveTo(bwR, bwB); ctx.lineTo(W, H);
+    ctx.stroke();
+
+    // Dim overlay on side faces for depth feel
+    const grad = ctx.createLinearGradient(0, 0, W * 0.28, 0);
+    grad.addColorStop(0, 'rgba(0,0,0,0.35)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    [{x:0,y:0},{x:bwL,y:bwT},{x:bwL,y:bwB},{x:0,y:H}].forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+    ctx.closePath(); ctx.fill();
+
+    const grad2 = ctx.createLinearGradient(W, 0, W * 0.72, 0);
+    grad2.addColorStop(0, 'rgba(0,0,0,0.20)');
+    grad2.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad2;
+    ctx.beginPath();
+    [{x:bwR,y:bwT},{x:W,y:0},{x:W,y:H},{x:bwR,y:bwB}].forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+    ctx.closePath(); ctx.fill();
+  }
+
+  function simFillQuad(ctx, poly, img, fallback) {
+    ctx.save();
+    ctx.beginPath();
+    poly.forEach((p,i) => i ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y));
+    ctx.closePath();
+    if (img && img.complete && img.naturalWidth > 0) {
+      ctx.clip();
+      const iW = img.naturalWidth, iH = img.naturalHeight;
+      simTexTri(ctx, img, poly[0],poly[1],poly[2], 0,0, iW,0, iW,iH);
+      simTexTri(ctx, img, poly[0],poly[2],poly[3], 0,0, iW,iH, 0,iH);
+    } else {
+      ctx.fillStyle = fallback;
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function simTexTri(ctx, img, p0,p1,p2, u0,v0, u1,v1, u2,v2) {
+    const d = (u1-u0)*(v2-v0)-(u2-u0)*(v1-v0);
+    if (Math.abs(d) < 0.001) return;
+    const a = ((p1.x-p0.x)*(v2-v0)-(p2.x-p0.x)*(v1-v0))/d;
+    const b = ((p2.x-p0.x)*(u1-u0)-(p1.x-p0.x)*(u2-u0))/d;
+    const c = p0.x - a*u0 - b*v0;
+    const dd= ((p1.y-p0.y)*(v2-v0)-(p2.y-p0.y)*(v1-v0))/d;
+    const e = ((p2.y-p0.y)*(u1-u0)-(p1.y-p0.y)*(u2-u0))/d;
+    const f = p0.y - dd*u0 - e*v0;
+    ctx.save();
+    ctx.transform(a, dd, b, e, c, f);
+    ctx.drawImage(img, 0, 0);
+    ctx.restore();
   }
 
   // --- budget ---
