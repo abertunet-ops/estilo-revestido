@@ -430,6 +430,118 @@ function initProductModal() {
   const pmAdd    = document.getElementById('pmAddBtn');
   const pmWa     = document.getElementById('pmWaBtn');
 
+  function parseCoverage(card) {
+    const specs = [...card.querySelectorAll('.card-spec')].map(s => s.textContent.trim());
+    const priceUnit = card.querySelector('.card-price-unit')?.textContent?.trim() || '';
+
+    // Match "X.XX m² / unit" anywhere in a spec
+    for (const spec of specs) {
+      const m = spec.match(/~?([\d.,]+)\s*m[²2]\s*\/\s*(\w+)/i);
+      if (m) {
+        const coverage = parseFloat(m[1].replace(',', '.'));
+        const rawUnit = m[2]; // tira, placa, caja, unidad…
+        const plural = rawUnit.endsWith('a') ? rawUnit + 's' : rawUnit.endsWith('ión') ? rawUnit.replace('ión', 'iones') : rawUnit + 's';
+        return { type: 'm2', coverage, unit: rawUnit, plural };
+      }
+    }
+    // "Precio por m²" or price unit "/ m²"
+    if (specs.some(s => /precio por m[²2]/i.test(s)) || priceUnit === '/ m²') {
+      return { type: 'm2', coverage: 1, unit: 'm²', plural: 'm²' };
+    }
+    // "Precio por metro" or price unit "/ m"
+    if (specs.some(s => /precio por metro/i.test(s)) || priceUnit === '/ m') {
+      return { type: 'ml', coverage: 1, unit: 'm', plural: 'm' };
+    }
+    return null;
+  }
+
+  function setupMiniCalc(card) {
+    const calcBox   = document.getElementById('pmCalc');
+    const m2Inputs  = document.getElementById('pmCalcM2Inputs');
+    const mlInputs  = document.getElementById('pmCalcMlInputs');
+    const wInput    = document.getElementById('pmCalcW');
+    const hInput    = document.getElementById('pmCalcH');
+    const areaInput = document.getElementById('pmCalcArea');
+    const mlInput   = document.getElementById('pmCalcMl');
+    const calcBtn   = document.getElementById('pmCalcBtn');
+    const calcRes   = document.getElementById('pmCalcResult');
+
+    const cov = parseCoverage(card);
+    if (!cov) { calcBox.style.display = 'none'; return; }
+    calcBox.style.display = '';
+
+    const priceEl = card.querySelector('.card-price');
+    const priceRaw = (priceEl?.textContent || '').replace(/[$.\s]/g, '').replace(/,/g, '');
+    const unitPrice = parseInt(priceRaw) || 0;
+    const title = card.querySelector('.card-title')?.textContent || 'Producto';
+    const imgSrc = card.querySelector('.card-image-wrap img')?.src || '';
+
+    // Show correct inputs
+    if (cov.type === 'ml') {
+      m2Inputs.style.display = 'none';
+      mlInputs.style.display = '';
+    } else {
+      m2Inputs.style.display = '';
+      mlInputs.style.display = 'none';
+    }
+
+    // Clear previous state
+    [wInput, hInput, areaInput, mlInput].forEach(inp => { if (inp) inp.value = ''; });
+    calcRes.innerHTML = '';
+    calcRes.classList.remove('show');
+
+    // Auto-fill area from width × height
+    function syncArea() {
+      const w = parseFloat(wInput?.value) || 0;
+      const h = parseFloat(hInput?.value) || 0;
+      if (w > 0 && h > 0 && areaInput) areaInput.value = (w * h).toFixed(2);
+    }
+    wInput?.removeEventListener('input', syncArea);
+    hInput?.removeEventListener('input', syncArea);
+    wInput?.addEventListener('input', syncArea);
+    hInput?.addEventListener('input', syncArea);
+
+    calcBtn.onclick = () => {
+      let quantity;
+      if (cov.type === 'ml') {
+        const ml = parseFloat(mlInput?.value) || 0;
+        if (!ml) return;
+        quantity = Math.ceil(ml / cov.coverage * 1.05);
+      } else {
+        const area = parseFloat(areaInput?.value) || 0;
+        if (!area) return;
+        quantity = cov.coverage === 1
+          ? Math.ceil(area * 1.1)
+          : Math.ceil((area / cov.coverage) * 1.1);
+      }
+
+      const total = quantity * unitPrice;
+      const inputVal = cov.type === 'ml'
+        ? `${parseFloat(mlInput?.value).toFixed(1)} m`
+        : `${parseFloat(areaInput?.value).toFixed(2)} m²`;
+
+      calcRes.innerHTML = `
+        <div class="pm-calc-res-row"><span>${cov.type === 'ml' ? 'Metros a cubrir' : 'Área a cubrir'}</span><span>${inputVal}</span></div>
+        <div class="pm-calc-res-row"><span>${cov.plural} necesarias (+10%)</span><span>${quantity} ${cov.plural}</span></div>
+        <div class="pm-calc-res-row total"><span>Total material</span><span>${formatPrice(total)}</span></div>
+        <button class="pm-calc-add-qty" id="pmCalcAddQty">+ Agregar ${quantity} ${cov.plural} al carrito</button>
+      `;
+      calcRes.classList.add('show');
+
+      document.getElementById('pmCalcAddQty')?.addEventListener('click', () => {
+        const existing = cart.find(it => it.name === title);
+        if (existing) {
+          existing.qty = quantity;
+        } else {
+          cart.push({ name: title, price: unitPrice, img: imgSrc, unit: cov.unit, qty: quantity });
+        }
+        renderCart();
+        showToast(`✦ ${quantity} ${cov.plural} de "${title}" agregadas`);
+        closeModal();
+      });
+    };
+  }
+
   function openModal(card) {
     const img      = card.querySelector('.card-image-wrap img');
     const category = card.querySelector('.card-category')?.textContent || '';
@@ -471,6 +583,8 @@ function initProductModal() {
 
     const waMsg = `Hola, me interesa el producto:\n• ${title}\n• Precio: ${priceEl?.textContent || ''} ${unitEl?.textContent || ''}\n\n¿Pueden darme más información y precio de colocación?`;
     pmWa.href = `https://wa.me/542214374605?text=${encodeURIComponent(waMsg)}`;
+
+    setupMiniCalc(card);
 
     overlay.setAttribute('aria-hidden', 'false');
     overlay.classList.add('open');
