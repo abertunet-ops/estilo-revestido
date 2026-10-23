@@ -228,8 +228,8 @@ const PRODUCTS_CALC = {
   'piso-brilloso':      { name: 'Piso Flotante Alto Brillo',      price: 37383,  m2: 1,     unit: 'm²' },
   'flooran':            { name: 'Flooran Art Piso Flotante',      price: 25341,  m2: 1,     unit: 'm²' },
   // Deck WPC (precio por metro lineal)
-  'deck-wpc':           { name: 'Deck WPC Tablas',                price: 168342, ml: 1,     unit: 'm', perMl: true },
-  'deck-kit':           { name: 'Deck WPC Kit ELM',               price: 174756, ml: 1,     unit: 'm', perMl: true },
+  'tirante-acanalado':  { name: 'Tirante WPC Acanalado',           price: 168342, ml: 1,     unit: 'm', perMl: true },
+  'tirante-elm':        { name: 'Tirante WPC ELM Macizo',          price: 174756, ml: 1,     unit: 'm', perMl: true },
   'tirante-wpc':        { name: 'Tirante WPC 30×40mm',            price: 103849, ml: 1,     unit: 'm', perMl: true },
   // Zócalos (precio por metro lineal)
   'zocalo-7':           { name: 'Zócalo EPS 7cm + Clips',         price: 6005,   ml: 1,     unit: 'm', perMl: true },
@@ -736,35 +736,35 @@ const PRODUCT_DESCRIPTIONS = {
       ['Diseños', 'Múltiples'],
     ]
   },
-  'deck-wpc-tablas': {
+  'tirante-wpc-acanalado': {
     text: [
-      'Deck WPC Línea Premium, sólido con Co-Extrusion de alta calidad. El más resistente y fuerte del mercado.',
-      'Combina la calidez estética de la madera natural con la durabilidad extrema del PVC rígido.',
-      'Resistencia Total (UV y temperaturas extremas) · Bajo Mantenimiento (solo agua y jabón) · Antideslizante · No genera astillas · Sustentable (fibras recicladas).',
-      'El precio corresponde a 1 metro lineal. Se coloca sobre alfajías separadas 35–40 cm.'
+      'Perfil estructural WPC acanalado de Kolertech. La opción más resistente y fuerte del mercado para subestructura de decks y revestimientos.',
+      'Combina la calidez estética de la madera natural con la durabilidad extrema del compuesto madera-plástico.',
+      'Resistencia total UV y temperaturas extremas · Bajo mantenimiento (solo agua y jabón) · No genera astillas · Sustentable (fibras recicladas).',
+      'El precio corresponde a 1 metro lineal.'
     ],
     specs: [
-      ['Material', 'WPC sólido bi-color Co-Extrusion'],
-      ['Largo', '220 cm'],
-      ['Ancho', '14 cm'],
-      ['Espesor', '23 mm'],
-      ['Rendimiento', '0,31 m² / tabla'],
+      ['Material', 'WPC acanalado Co-Extrusion'],
       ['Anti-UV', 'Sí'],
-      ['Tipo de uso', 'Exterior / Terrazas / Piscinas'],
+      ['Resistencia al agua', '100%'],
+      ['Anti-hongos / pudrición', 'Sí'],
+      ['Tipo de uso', 'Estructura / Exterior'],
+      ['Colores', 'Almond, Jade, Peach, Black'],
     ]
   },
-  'deck-wpc-kit-elm': {
+  'tirante-wpc-elm-macizo': {
     text: [
-      'Kit completo de deck WPC macizo ELM con clips y accesorios de Kolertech.',
-      'La opción más robusta y duradera. Estructura más sólida para terrazas con tráfico intenso.',
-      'Incluye tablas, clips de fijación y terminaciones.',
+      'Perfil WPC macizo línea ELM de Kolertech, con clips y accesorios de fijación.',
+      'La opción más robusta y duradera para estructura de terrazas con tráfico intenso.',
+      'Kit completo que incluye tirantes, clips de fijación y terminaciones.',
       'El precio corresponde a 1 metro lineal.'
     ],
     specs: [
       ['Material', 'WPC macizo ELM'],
-      ['Tipo', 'Kit completo'],
-      ['Incluye', 'Tablas + clips + accesorios'],
-      ['Tipo de uso', 'Exterior / Terrazas premium'],
+      ['Tipo', 'Perfil estructural'],
+      ['Incluye', 'Tirantes + clips + accesorios'],
+      ['Resistencia al agua', '100%'],
+      ['Tipo de uso', 'Estructura / Terrazas premium'],
     ]
   },
   'tirante-wpc-30x40mm': {
