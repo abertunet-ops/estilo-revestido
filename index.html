@@ -22,6 +22,7 @@
     <ul class="nav-links">
       <li><a href="#productos">Productos</a></li>
       <li><a href="#galeria">Galería</a></li>
+      <li><a href="#simulaFoto">Simulador</a></li>
       <li><a href="#calculador">Calculador</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
@@ -97,32 +98,24 @@
   <div class="hero-ticker">
     <div class="ticker-track">
       <span>Wall Panel Interior PVC</span><span class="ticker-dot">✦</span>
-      <span>Wall Panel Exterior</span><span class="ticker-dot">✦</span>
-      <span>Wall Panel WPC Acanalado</span><span class="ticker-dot">✦</span>
+      <span>Wall Panel Exterior WPC</span><span class="ticker-dot">✦</span>
       <span>Placa PVC Simil Mármol</span><span class="ticker-dot">✦</span>
       <span>Placa PVC Simil Piedra</span><span class="ticker-dot">✦</span>
       <span>Piso Vinílico SPC Click</span><span class="ticker-dot">✦</span>
-      <span>Piso Flotante Laminado</span><span class="ticker-dot">✦</span>
-      <span>Deck WPC Exterior</span><span class="ticker-dot">✦</span>
-      <span>Placas 3D</span><span class="ticker-dot">✦</span>
-      <span>Zócalo EPS</span><span class="ticker-dot">✦</span>
+      <span>Tirantes WPC</span><span class="ticker-dot">✦</span>
+      <span>Placas 3D PVC</span><span class="ticker-dot">✦</span>
+      <span>Zócalo EPS + Clips</span><span class="ticker-dot">✦</span>
       <span>Molduras Cielorraso</span><span class="ticker-dot">✦</span>
-      <span>Césped Sintético</span><span class="ticker-dot">✦</span>
-      <span>Autoadhesivos PVC</span><span class="ticker-dot">✦</span>
       <span>Instalación Profesional</span><span class="ticker-dot">✦</span>
       <span>Wall Panel Interior PVC</span><span class="ticker-dot">✦</span>
-      <span>Wall Panel Exterior</span><span class="ticker-dot">✦</span>
-      <span>Wall Panel WPC Acanalado</span><span class="ticker-dot">✦</span>
+      <span>Wall Panel Exterior WPC</span><span class="ticker-dot">✦</span>
       <span>Placa PVC Simil Mármol</span><span class="ticker-dot">✦</span>
       <span>Placa PVC Simil Piedra</span><span class="ticker-dot">✦</span>
       <span>Piso Vinílico SPC Click</span><span class="ticker-dot">✦</span>
-      <span>Piso Flotante Laminado</span><span class="ticker-dot">✦</span>
-      <span>Deck WPC Exterior</span><span class="ticker-dot">✦</span>
-      <span>Placas 3D</span><span class="ticker-dot">✦</span>
-      <span>Zócalo EPS</span><span class="ticker-dot">✦</span>
+      <span>Tirantes WPC</span><span class="ticker-dot">✦</span>
+      <span>Placas 3D PVC</span><span class="ticker-dot">✦</span>
+      <span>Zócalo EPS + Clips</span><span class="ticker-dot">✦</span>
       <span>Molduras Cielorraso</span><span class="ticker-dot">✦</span>
-      <span>Césped Sintético</span><span class="ticker-dot">✦</span>
-      <span>Autoadhesivos PVC</span><span class="ticker-dot">✦</span>
       <span>Instalación Profesional</span><span class="ticker-dot">✦</span>
     </div>
   </div>
@@ -554,15 +547,8 @@
         </div>
         <div class="card-body">
           <p class="card-category">Wall Panel Exterior · Kolertech</p>
-          <h3 class="card-title">Wall Panel Exterior</h3>
-          <p class="card-desc">Revestimiento exterior de alta resistencia UV. Simil madera, no requiere pintura ni mantenimiento. Apto intemperie.</p>
-          <div class="card-colors">
-            <span class="color-chip">Almond</span>
-            <span class="color-chip">Black</span>
-            <span class="color-chip">Jade</span>
-            <span class="color-chip">Maple Wood</span>
-            <span class="color-chip">Peach</span>
-          </div>
+          <h3 class="card-title">Wall Panel Exterior — Jade</h3>
+          <p class="card-desc">Verde jade vibrante y natural. El favorito para fachadas con personalidad. Anti-UV, resistente a lluvia y humedad extrema.</p>
           <div class="card-specs">
             <span class="card-spec">0.36 m² / unidad</span>
             <span class="card-spec">Anti-UV</span>
@@ -1416,6 +1402,93 @@
   </div>
 </section>
 
+<!-- SIMULA TU FOTO -->
+<section class="section sf-section" id="simulaFoto">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center;margin-bottom:40px;">
+      <span class="section-eyebrow">Visualización en tu espacio real</span>
+      <h2 class="section-title">Simulá <span class="gold">tu ambiente</span></h2>
+      <p class="section-subtitle">Subí una foto de tu espacio, marcá la pared y mirá cómo queda el revestimiento antes de comprarlo</p>
+    </div>
+
+    <!-- Progress steps -->
+    <div class="sf-steps-bar">
+      <div class="sf-step-item sf-step-active" id="sfBar0"><span class="sf-step-num">1</span><span class="sf-step-lbl">Subir foto</span></div>
+      <div class="sf-step-sep"></div>
+      <div class="sf-step-item" id="sfBar1"><span class="sf-step-num">2</span><span class="sf-step-lbl">Marcar pared</span></div>
+      <div class="sf-step-sep"></div>
+      <div class="sf-step-item" id="sfBar2"><span class="sf-step-num">3</span><span class="sf-step-lbl">Elegir material</span></div>
+      <div class="sf-step-sep"></div>
+      <div class="sf-step-item" id="sfBar3"><span class="sf-step-num">4</span><span class="sf-step-lbl">Resultado</span></div>
+    </div>
+
+    <div class="sf-main">
+      <!-- LEFT: canvas area -->
+      <div class="sf-canvas-col">
+
+        <!-- Step 0: upload zone -->
+        <div class="sf-drop-zone" id="sfDropZone">
+          <input type="file" id="sfFileInput" accept="image/*">
+          <svg class="sf-drop-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="14" width="48" height="36" rx="3" stroke="currentColor" stroke-width="2"/>
+            <circle cx="22" cy="26" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 38l14-10 10 8 10-12 14 16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <p class="sf-drop-title">Arrastrá tu foto aquí</p>
+          <p class="sf-drop-sub">o hacé click para seleccionar desde tu dispositivo</p>
+          <button class="sf-upload-btn" id="sfUploadBtn">Seleccionar foto</button>
+          <p class="sf-drop-note">JPG · PNG · WEBP hasta 20 MB · La foto nunca sale de tu dispositivo</p>
+        </div>
+
+        <!-- Step 1-3: canvas -->
+        <div class="sf-canvas-wrap sf-hidden" id="sfCanvasWrap">
+          <canvas id="sfCanvas"></canvas>
+          <div class="sf-canvas-bar" id="sfCanvasBar">
+            <span class="sf-instr" id="sfInstruction">Hacé click en los 4 rincones de la pared (sentido horario: sup-izq → sup-der → inf-der → inf-izq)</span>
+            <div class="sf-bar-btns">
+              <button class="sf-tool-btn" id="sfUndoBtn" title="Deshacer último punto">↩</button>
+              <button class="sf-tool-btn" id="sfResetPoly" title="Limpiar puntos">✕ puntos</button>
+              <button class="sf-tool-btn sf-tool-btn--dim" id="sfNewPhoto" title="Cambiar foto">📷 foto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: product selector -->
+      <div class="sf-prod-col sf-hidden" id="sfProdCol">
+        <div class="sf-prod-header">
+          <h3 class="sf-prod-title">Elegí el material</h3>
+          <p class="sf-prod-sub">Hacé click en un producto para verlo aplicado</p>
+        </div>
+        <div class="sf-cat-bar" id="sfCatBar">
+          <button class="sf-cat-btn sf-cat-active" data-cat="all">Todos</button>
+          <button class="sf-cat-btn" data-cat="pared">Paredes</button>
+          <button class="sf-cat-btn" data-cat="techo">Placas</button>
+          <button class="sf-cat-btn" data-cat="piso">Pisos</button>
+        </div>
+        <div class="sf-prod-grid" id="sfProdGrid"></div>
+
+        <!-- Opacity slider (shown after product is chosen) -->
+        <div class="sf-opacity-row sf-hidden" id="sfOpacityRow">
+          <label class="sf-opacity-lbl">Intensidad <span id="sfOpacityVal">80%</span></label>
+          <input type="range" class="sf-opacity-range" id="sfOpacity" min="20" max="100" value="80">
+        </div>
+      </div>
+    </div>
+
+    <!-- Result action bar (step 3) -->
+    <div class="sf-result-bar sf-hidden" id="sfResultBar">
+      <button class="sf-act-btn sf-act-secondary" id="sfBtnChange">⟳ Cambiar material</button>
+      <button class="sf-act-btn sf-act-secondary" id="sfBtnNewPoly">◻ Nueva selección</button>
+      <button class="sf-act-btn sf-act-primary" id="sfBtnDownload">↓ Descargar resultado</button>
+      <button class="sf-act-btn sf-act-wa" id="sfBtnWa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.959 9.959 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        Consultar por WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="section" id="galeria">
   <div class="container">
@@ -1483,42 +1556,25 @@
                 <option value="wall-exterior">Wall Panel Exterior PVC ($66.767 / 0.36 m²)</option>
               </optgroup>
               <optgroup label="── Placas PVC">
-                <option value="placa-marmol">Placa PVC Simil Mármol ($81.238 / 3.42 m²)</option>
-                <option value="placa-piedra">Placa PVC Simil Piedra ($101.908 / 3.42 m²)</option>
-                <option value="piedra-flexible">Piedra Natural Flexible Travertino ($57.030 / 0.72 m²)</option>
-                <option value="autoadhesivo">Placa Autoadhesiva PVC ($16.507 / m²)</option>
+                <option value="placa-marmol">Placa PVC Simil Mármol ($86.886 / 3.42 m²)</option>
+                <option value="placa-piedra">Placa PVC Simil Piedra ($86.886 / 3.42 m²)</option>
               </optgroup>
               <optgroup label="── Placas 3D">
-                <option value="placa-3d">Placa 3D PVC ($6.895 / 0.25 m²)</option>
+                <option value="placa-3d">Placa 3D PVC ($5.875 / 0.25 m²)</option>
               </optgroup>
-              <optgroup label="── Pisos Vinílicos SPC">
-                <option value="piso-vinilico">Piso Vinílico SPC Click ($36.381 / m²)</option>
-                <option value="piso-porcelanato">Piso SPC Simil Porcelanato ($36.375 / m²)</option>
-                <option value="piso-wpc">Piso Vinílico WPC Premium ($51.020 / m²)</option>
-                <option value="piso-pegar">Piso Vinílico para Pegar ($25.953 / m²)</option>
-              </optgroup>
-              <optgroup label="── Pisos Flotantes">
-                <option value="piso-flotante">Piso Flotante Laminado ($29.020 / m²)</option>
-                <option value="piso-brilloso">Piso Flotante Alto Brillo ($37.383 / m²)</option>
-                <option value="flooran">Flooran Art Flotante ($25.341 / m²)</option>
+              <optgroup label="── Pisos Vinílicos SPC Click">
+                <option value="piso-vinilico">Piso Vinílico SPC Click ($77.610 / 2.2 m²)</option>
               </optgroup>
               <optgroup label="── Perfiles WPC">
-                <option value="tirante-acanalado">Tirante WPC Acanalado ($168.342 / m lineal)</option>
-                <option value="tirante-elm">Tirante WPC ELM Macizo ($174.756 / m lineal)</option>
-                <option value="tirante-wpc">Tirante WPC 30×40mm ($103.849 / m lineal)</option>
+                <option value="tirante-acanalado">Tirante WPC 90×40mm ($48.775 / tirante 3m)</option>
+                <option value="tirante-wpc">Tirante WPC 30×40mm ($18.627 / tirante 3m)</option>
               </optgroup>
               <optgroup label="── Zócalos">
-                <option value="zocalo-7">Zócalo EPS 7cm + Clips ($6.005 / m lineal)</option>
-                <option value="zocalo-10">Zócalo EPS 10cm + Clips ($9.968 / m lineal)</option>
-                <option value="zocalo-led">Zócalo EPS LED 10cm ($18.904 / m lineal)</option>
+                <option value="zocalo-7">Zócalo EPS 7cm + Clips ($12.100 / tira 3m)</option>
               </optgroup>
               <optgroup label="── Molduras Cielorraso">
-                <option value="moldura-peq">Moldura EPS pequeña ($1.207 / m lineal)</option>
-                <option value="moldura-grande">Moldura EPS grande ($5.186 / m lineal)</option>
-              </optgroup>
-              <optgroup label="── Césped Sintético">
-                <option value="cesped-premium">Césped Sintético Premium ($28.526 / m²)</option>
-                <option value="cesped-luxe">Césped Sintético Luxe ($36.490 / m²)</option>
+                <option value="moldura-peq">Moldura Cielorraso EPS ($1.207 / m lineal)</option>
+                <option value="moldura-grande">Moldura Cielorraso EPS Grande ($5.186 / m lineal)</option>
               </optgroup>
             </select>
           </div>

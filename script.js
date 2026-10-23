@@ -1,4 +1,4 @@
-/* ===== HERO SLIDESHOW ===== */
+﻿/* ===== HERO SLIDESHOW ===== */
 function initSlideshow() {
   const slides = document.querySelectorAll('.hero-slide');
   const counter = document.querySelector('.slide-current');
@@ -821,6 +821,123 @@ const PRODUCT_DESCRIPTIONS = {
       ['Anti-UV', 'Sí'],
     ]
   },
+
+  // ── Placas PVC – colores ──────────────────────────────────────────────────
+  'placa-pvc-carrara': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color Carrara: mármol clásico blanco con vetas grises naturales. El diseño más elegante y atemporal de la línea. Perfecto para baños, cocinas y living.']
+  },
+  'placa-pvc-carrara-black': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color Carrara Black: fondo oscuro profundo con vetas doradas y grises. Sofisticación máxima para ambientes de lujo y locales premium.']
+  },
+  'placa-pvc-marmol-blanco': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color Mármol Blanco: blanco nacarado con vetas sutiles. Luminoso y atemporal. Amplía visualmente cualquier espacio.']
+  },
+  'placa-pvc-marmol-negro': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color Mármol Negro: negro profundo con vetas doradas. Elegancia absoluta para TV walls, fondos de cama y locales de alto impacto.']
+  },
+  'placa-pvc-all-white': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color All White: blanco liso y puro, sin vetas. Minimalismo total. Ideal para diseños donde el color es protagonista o para espacios reducidos.']
+  },
+  'placa-pvc-all-black': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color All Black: negro liso y mate. Contraste dramático para TV walls, locales y ambientes modernos de alto impacto visual.']
+  },
+  'placa-pvc-gray': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color Gray: gris cemento liso. Estilo industrial y contemporáneo. Combina perfecto con maderas, metales y cualquier paleta de color.']
+  },
+  'placa-pvc-jura-beige': {
+    base: 'placa-pvc-simil-piedra',
+    textExtra: ['Color Jura Beige: piedra Jura en tono beige cálido. Textura natural con vetas pronunciadas. Ideal para paredes de acento y baños con estilo rústico-moderno.']
+  },
+  'placa-pvc-jura-gray': {
+    base: 'placa-pvc-simil-piedra',
+    textExtra: ['Color Jura Gray: piedra Jura en gris frío. Textura rústica con elegancia contemporánea. Sin juntas visibles, impermeable, fácil instalación.']
+  },
+  'placa-pvc-mica': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Color Mica: efecto mica con destellos metalizados sutiles. Único y exclusivo. Para ambientes que buscan un look diferente y lujoso sin perder sobriedad.']
+  },
+
+  // ── Placas 3D ────────────────────────────────────────────────────────────
+  'placa-3d': {
+    text: [
+      'Placa 3D de PVC Kolertech. Diseño en relieve que crea efectos de luz y sombra únicos según el ángulo de la iluminación.',
+      'Se instala fácil con adhesivo sobre cualquier pared lisa. Liviana y pintable con pintura látex de cualquier color.',
+      'Transforma cualquier pared en minutos. Sin obra, sin humedad, sin olor. El precio corresponde a 1 unidad de 50 × 50 cm.'
+    ],
+    specs: [
+      ['Material', 'PVC de alta calidad'],
+      ['Medidas', '50 × 50 cm'],
+      ['Superficie', '0,25 m² / unidad'],
+      ['Espesor relieve', '~5 mm'],
+      ['Pintable', 'Sí - pintura látex cualquier color'],
+      ['Instalación', 'Adhesivo Atenneas o Sika'],
+      ['Tipo de uso', 'Interior'],
+    ]
+  },
+
+  // ── Piso Vinílico SPC Click ───────────────────────────────────────────────
+  'spc-click': {
+    text: [
+      'Piso Vinílico SPC Click Kolertech. Núcleo de piedra (Stone Plastic Composite) de 4,8 mm. Tecnología alemana.',
+      '100% impermeable, flotante, sin adhesivo. Sistema de click europeo de alta resistencia. Apto para calefacción por piso radiante.',
+      'Resistente a rayados, manchas y tráfico intenso. Sin VOC ni formaldehído. El precio corresponde a 1 caja (~2,2 m²).'
+    ],
+    specs: [
+      ['Material núcleo', 'SPC (Stone Plastic Composite)'],
+      ['Espesor total', '4,8 mm'],
+      ['Capa de desgaste', '0,3 mm'],
+      ['Dimensión tablón', '1220 × 183 mm'],
+      ['Por caja', '~2,2 m²'],
+      ['Instalación', 'Click flotante - sin adhesivo'],
+      ['Apto baños', 'Sí (100% impermeable)'],
+      ['Radiant heat', 'Sí'],
+      ['Clase', 'AC4 / Residencial / Comercial ligero'],
+    ]
+  },
+
+  // ── Tirantes WPC nuevos ───────────────────────────────────────────────────
+  'tirante-wpc-90-40mm': {
+    text: [
+      'Perfil WPC acanalado de sección 90×40 mm de Kolertech. La opción más resistente para decks y revestimientos de fachada.',
+      'WPC (Wood Plastic Composite): madera + plástico. Simil madera, no se astilla, no se pudre, no requiere pintura.',
+      'Resistente a rayos UV, lluvia, humedad y sal. Apto uso exterior. Incluye tapas terminales y clips de fijación.'
+    ],
+    specs: [
+      ['Material', 'WPC (Wood Plastic Composite)'],
+      ['Sección', '90 × 40 mm'],
+      ['Largo', '3 metros'],
+      ['Superficie acanalada', 'Sí (doble cara)'],
+      ['Colores disponibles', 'Almond, Jade, Peach, Black'],
+      ['Instalación', 'Clips ocultos + tornillo'],
+      ['Tipo de uso', 'Exterior / Interior'],
+      ['Mantenimiento', 'Nulo - no pinta ni trata'],
+    ]
+  },
+  'tirante-wpc-30-40mm': {
+    base: 'tirante-wpc-30x40mm'
+  },
+
+  // ── Molduras ─────────────────────────────────────────────────────────────
+  'moldura': {
+    text: [
+      'Moldura decorativa de EPS (poliestireno expandido) para la unión techo-pared. Marca Bliss.',
+      'Liviana, fácil de instalar con adhesivo Atenneas o Sika. Se puede pintar del color que quieras con pintura látex.',
+      'Da terminación profesional a cualquier ambiente. No requiere experiencia — la instala cualquier persona. El precio es por metro lineal.'
+    ],
+    specs: [
+      ['Material', 'EPS (Poliestireno Expandido)'],
+      ['Pintable', 'Sí - pintura látex cualquier color'],
+      ['Instalación', 'Adhesivo Atenneas o Sika'],
+      ['Tipo de uso', 'Interior'],
+    ]
+  },
 };
 
 function getProductDescription(title) {
@@ -1589,6 +1706,367 @@ function initSimulator() {
   updateRoom();
 }
 
+
+/* ===== SIMULA TU FOTO ===== */
+function initPhotoSim() {
+  const dropZone     = document.getElementById('sfDropZone');
+  const fileInput    = document.getElementById('sfFileInput');
+  const uploadBtn    = document.getElementById('sfUploadBtn');
+  const canvasWrap   = document.getElementById('sfCanvasWrap');
+  const canvas       = document.getElementById('sfCanvas');
+  const ctx          = canvas.getContext('2d');
+  const instrEl      = document.getElementById('sfInstruction');
+  const undoBtn      = document.getElementById('sfUndoBtn');
+  const resetPoly    = document.getElementById('sfResetPoly');
+  const newPhotoBtn  = document.getElementById('sfNewPhoto');
+  const prodCol      = document.getElementById('sfProdCol');
+  const catBar       = document.getElementById('sfCatBar');
+  const prodGrid     = document.getElementById('sfProdGrid');
+  const opacityRow   = document.getElementById('sfOpacityRow');
+  const opacitySlider= document.getElementById('sfOpacity');
+  const opacityValEl = document.getElementById('sfOpacityVal');
+  const resultBar    = document.getElementById('sfResultBar');
+  const dlBtn        = document.getElementById('sfBtnDownload');
+  const changeBtn    = document.getElementById('sfBtnChange');
+  const newPolyBtn   = document.getElementById('sfBtnNewPoly');
+  const sfWaBtn      = document.getElementById('sfBtnWa');
+  const stepEls      = [0,1,2,3].map(i => document.getElementById('sfBar'+i));
+
+  let photoImg    = null;
+  let points      = [];   // up to 4 {x,y} in canvas-pixel coords
+  let selectedKey = null;
+  let prodImg     = null;
+  let dragIdx     = -1;
+  let phase       = 0;
+  const N         = 16;  // bilinear subdivision grid
+
+  function setPhase(p) {
+    phase = p;
+    stepEls.forEach((el, i) => el.classList.toggle('sf-step-active', i === p));
+  }
+
+  /* --- upload --- */
+  uploadBtn.addEventListener('click', e => { e.stopPropagation(); fileInput.click(); });
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('sf-drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('sf-drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('sf-drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith('image/')) loadFile(f);
+  });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); });
+
+  function loadFile(file) {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      photoImg = img;
+      URL.revokeObjectURL(url);
+      points = []; selectedKey = null; prodImg = null;
+      setupCanvas();
+      dropZone.classList.add('sf-hidden');
+      canvasWrap.classList.remove('sf-hidden');
+      prodCol.classList.remove('sf-hidden');
+      resultBar.classList.add('sf-hidden');
+      opacityRow.classList.add('sf-hidden');
+      setPhase(1);
+      updateInstr();
+      render();
+    };
+    img.src = url;
+  }
+
+  function setupCanvas() {
+    const maxW = canvasWrap.clientWidth || 700;
+    canvas.width  = maxW;
+    canvas.height = Math.round(maxW * photoImg.naturalHeight / photoImg.naturalWidth);
+    canvas.style.height = canvas.height + 'px';
+  }
+
+  newPhotoBtn.addEventListener('click', () => {
+    photoImg = null; points = []; selectedKey = null; prodImg = null;
+    canvasWrap.classList.add('sf-hidden');
+    prodCol.classList.add('sf-hidden');
+    resultBar.classList.add('sf-hidden');
+    opacityRow.classList.add('sf-hidden');
+    dropZone.classList.remove('sf-hidden');
+    setPhase(0);
+    fileInput.value = '';
+  });
+
+  undoBtn.addEventListener('click', () => { if (points.length) { points.pop(); render(); updateInstr(); } });
+  resetPoly.addEventListener('click', () => {
+    points = []; selectedKey = null; prodImg = null;
+    resultBar.classList.add('sf-hidden');
+    opacityRow.classList.add('sf-hidden');
+    setPhase(1); render(); updateInstr();
+  });
+
+  /* --- product grid --- */
+  function buildProdGrid(cat) {
+    prodGrid.innerHTML = '';
+    Object.entries(SIM_CATALOG).forEach(([key, prod]) => {
+      if (prod.surfaces.includes('zocalo')) return;
+      if (cat !== 'all' && !prod.surfaces.includes(cat)) return;
+      const thumb = document.createElement('div');
+      thumb.className = 'sf-prod-thumb' + (key === selectedKey ? ' sf-prod-selected' : '');
+      const img = document.createElement('img');
+      img.src = prod.img; img.alt = prod.label; img.loading = 'lazy';
+      const lbl = document.createElement('div');
+      lbl.className = 'sf-prod-thumb-label';
+      lbl.textContent = prod.label;
+      thumb.appendChild(img); thumb.appendChild(lbl);
+      thumb.addEventListener('click', () => selectProduct(key));
+      prodGrid.appendChild(thumb);
+    });
+  }
+  buildProdGrid('all');
+
+  catBar.addEventListener('click', e => {
+    const btn = e.target.closest('.sf-cat-btn');
+    if (!btn) return;
+    catBar.querySelectorAll('.sf-cat-btn').forEach(b => b.classList.remove('sf-cat-active'));
+    btn.classList.add('sf-cat-active');
+    buildProdGrid(btn.dataset.cat);
+  });
+
+  function selectProduct(key) {
+    if (points.length < 4) {
+      instrEl.style.color = 'var(--gold)';
+      instrEl.textContent = 'Primero marcá los 4 rincones de la pared';
+      setTimeout(() => { instrEl.style.color = ''; updateInstr(); }, 2500);
+      return;
+    }
+    selectedKey = key;
+    const activeCat = catBar.querySelector('.sf-cat-active')?.dataset.cat || 'all';
+    buildProdGrid(activeCat);
+    opacityRow.classList.remove('sf-hidden');
+    resultBar.classList.remove('sf-hidden');
+    setPhase(3);
+    const p = SIM_CATALOG[key];
+    if (!p) return;
+    prodImg = null; render();
+    const im = new Image();
+    im.onload  = () => { prodImg = im; render(); };
+    im.onerror = () => { prodImg = null; render(); };
+    im.src = p.img;
+  }
+
+  /* --- canvas pointer --- */
+  function canvasPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const scaleX = canvas.width  / r.width;
+    const scaleY = canvas.height / r.height;
+    const src = e.touches ? e.touches[0] : e;
+    return { x: (src.clientX - r.left) * scaleX, y: (src.clientY - r.top) * scaleY };
+  }
+
+  function hitPoint(pos) {
+    const r = canvas.getBoundingClientRect();
+    const R = 14 * (canvas.width / r.width);
+    for (let i = 0; i < points.length; i++) {
+      const dx = points[i].x - pos.x, dy = points[i].y - pos.y;
+      if (dx*dx + dy*dy < R*R) return i;
+    }
+    return -1;
+  }
+
+  canvas.addEventListener('mousedown', e => {
+    const pos = canvasPos(e);
+    const hit = hitPoint(pos);
+    if (hit >= 0) { dragIdx = hit; return; }
+    if (points.length < 4) {
+      points.push(pos);
+      render(); updateInstr();
+      if (points.length === 4) { setPhase(2); instrEl.textContent = 'Ahora elegí un material de la lista'; }
+    }
+  });
+  canvas.addEventListener('mousemove', e => { if (dragIdx >= 0) { points[dragIdx] = canvasPos(e); render(); } });
+  canvas.addEventListener('mouseup',   () => { dragIdx = -1; });
+  canvas.addEventListener('mouseleave',() => { dragIdx = -1; });
+
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const pos = canvasPos(e);
+    const hit = hitPoint(pos);
+    if (hit >= 0) { dragIdx = hit; return; }
+    if (points.length < 4) {
+      points.push(pos); render(); updateInstr();
+      if (points.length === 4) { setPhase(2); instrEl.textContent = 'Ahora elegí un material de la lista'; }
+    }
+  }, { passive: false });
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (dragIdx >= 0) { points[dragIdx] = canvasPos(e); render(); }
+  }, { passive: false });
+  canvas.addEventListener('touchend', () => { dragIdx = -1; });
+
+  opacitySlider.addEventListener('input', () => {
+    opacityValEl.textContent = opacitySlider.value + '%';
+    render();
+  });
+
+  /* --- render --- */
+  function render() {
+    if (!photoImg) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(photoImg, 0, 0, canvas.width, canvas.height);
+    if (prodImg && points.length === 4) applyTexture();
+    drawOverlay();
+  }
+
+  function applyTexture() {
+    const alpha = parseInt(opacitySlider.value) / 100;
+    const iW = prodImg.naturalWidth, iH = prodImg.naturalHeight;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.globalCompositeOperation = 'multiply';
+    for (let j = 0; j < N; j++) {
+      for (let i = 0; i < N; i++) {
+        const s0 = i/N, t0 = j/N, s1 = (i+1)/N, t1 = (j+1)/N;
+        const p00 = sfBilerp(points,s0,t0), p10 = sfBilerp(points,s1,t0);
+        const p11 = sfBilerp(points,s1,t1), p01 = sfBilerp(points,s0,t1);
+        sfTexTri(ctx,prodImg, p00,p10,p11, s0*iW,t0*iH, s1*iW,t0*iH, s1*iW,t1*iH);
+        sfTexTri(ctx,prodImg, p00,p11,p01, s0*iW,t0*iH, s1*iW,t1*iH, s0*iW,t1*iH);
+      }
+    }
+    ctx.restore();
+  }
+
+  function sfBilerp(poly, s, t) {
+    const top = { x: poly[0].x + s*(poly[1].x-poly[0].x), y: poly[0].y + s*(poly[1].y-poly[0].y) };
+    const bot = { x: poly[3].x + s*(poly[2].x-poly[3].x), y: poly[3].y + s*(poly[2].y-poly[3].y) };
+    return { x: top.x + t*(bot.x-top.x), y: top.y + t*(bot.y-top.y) };
+  }
+
+  function sfTexTri(ctx, img, p0,p1,p2, u0,v0,u1,v1,u2,v2) {
+    const d = (u1-u0)*(v2-v0) - (u2-u0)*(v1-v0);
+    if (Math.abs(d) < 0.001) return;
+    const a  = ((p1.x-p0.x)*(v2-v0) - (p2.x-p0.x)*(v1-v0)) / d;
+    const b  = ((p2.x-p0.x)*(u1-u0) - (p1.x-p0.x)*(u2-u0)) / d;
+    const c  = p0.x - a*u0 - b*v0;
+    const dd = ((p1.y-p0.y)*(v2-v0) - (p2.y-p0.y)*(v1-v0)) / d;
+    const ee = ((p2.y-p0.y)*(u1-u0) - (p1.y-p0.y)*(u2-u0)) / d;
+    const ff = p0.y - dd*u0 - ee*v0;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y);
+    ctx.closePath(); ctx.clip();
+    ctx.transform(a,dd,b,ee,c,ff);
+    ctx.drawImage(img,0,0);
+    ctx.restore();
+  }
+
+  function drawOverlay() {
+    if (!points.length) return;
+    ctx.save();
+    if (points.length === 4 && !prodImg) {
+      ctx.beginPath();
+      points.forEach((p,i) => i ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y));
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(201,162,94,0.18)';
+      ctx.fill();
+    }
+    ctx.strokeStyle = 'rgba(201,162,94,0.85)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6,4]);
+    ctx.beginPath();
+    points.forEach((p,i) => i ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y));
+    if (points.length === 4) ctx.closePath();
+    ctx.stroke();
+    ctx.setLineDash([]);
+    points.forEach((p,i) => {
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,7,0,Math.PI*2);
+      ctx.fillStyle = '#C9A25E'; ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = '#080705';
+      ctx.font = 'bold 9px Inter,sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(i+1, p.x, p.y);
+    });
+    ctx.restore();
+  }
+
+  function updateInstr() {
+    const msgs = [
+      'Hacé click en el rincón superior-izquierdo de la pared',
+      'Ahora el rincón superior-derecho',
+      'Ahora el rincón inferior-derecho',
+      'Por último el rincón inferior-izquierdo',
+    ];
+    instrEl.style.color = '';
+    if (points.length < 4) instrEl.textContent = msgs[points.length];
+    else instrEl.textContent = 'Arrastrá los puntos para ajustar · Elegí un material a la derecha';
+  }
+
+  changeBtn.addEventListener('click', () => {
+    selectedKey = null; prodImg = null;
+    opacityRow.classList.add('sf-hidden');
+    resultBar.classList.add('sf-hidden');
+    setPhase(2); render();
+    const activeCat = catBar.querySelector('.sf-cat-active')?.dataset.cat || 'all';
+    buildProdGrid(activeCat);
+  });
+  newPolyBtn.addEventListener('click', () => {
+    points = []; selectedKey = null; prodImg = null;
+    opacityRow.classList.add('sf-hidden');
+    resultBar.classList.add('sf-hidden');
+    setPhase(1); render(); updateInstr();
+  });
+
+  /* --- download --- */
+  dlBtn.addEventListener('click', () => {
+    const tmp = document.createElement('canvas');
+    tmp.width = canvas.width; tmp.height = canvas.height;
+    const tc = tmp.getContext('2d');
+    tc.drawImage(photoImg, 0, 0, canvas.width, canvas.height);
+    if (prodImg && points.length === 4) {
+      const alpha = parseInt(opacitySlider.value)/100;
+      const iW = prodImg.naturalWidth, iH = prodImg.naturalHeight;
+      tc.save();
+      tc.globalAlpha = alpha;
+      tc.globalCompositeOperation = 'multiply';
+      for (let j=0; j<N; j++) {
+        for (let i=0; i<N; i++) {
+          const s0=i/N,t0=j/N,s1=(i+1)/N,t1=(j+1)/N;
+          const p00=sfBilerp(points,s0,t0),p10=sfBilerp(points,s1,t0);
+          const p11=sfBilerp(points,s1,t1),p01=sfBilerp(points,s0,t1);
+          sfTexTri(tc,prodImg,p00,p10,p11,s0*iW,t0*iH,s1*iW,t0*iH,s1*iW,t1*iH);
+          sfTexTri(tc,prodImg,p00,p11,p01,s0*iW,t0*iH,s1*iW,t1*iH,s0*iW,t1*iH);
+        }
+      }
+      tc.restore();
+    }
+    const a = document.createElement('a');
+    a.href = tmp.toDataURL('image/jpeg',0.92);
+    a.download = 'estilo-revestido-simulacion.jpg';
+    a.click();
+  });
+
+  /* --- WhatsApp --- */
+  sfWaBtn.addEventListener('click', () => {
+    const prod = selectedKey ? SIM_CATALOG[selectedKey] : null;
+    const name = prod ? prod.label : 'un revestimiento';
+    const msg  = `Hola! Usé el simulador de Estilo Revestido y me interesa ${name}. ¿Podrían asesorarme?`;
+    window.open('https://wa.me/542214374605?text='+encodeURIComponent(msg),'_blank');
+  });
+
+  /* --- resize --- */
+  window.addEventListener('resize', () => {
+    if (!photoImg || canvasWrap.classList.contains('sf-hidden')) return;
+    const prevW = canvas.width;
+    const newW  = canvasWrap.clientWidth;
+    if (Math.abs(newW - prevW) < 2) return;
+    const scale = newW / prevW;
+    points = points.map(p => ({ x: p.x*scale, y: p.y*scale }));
+    setupCanvas(); render();
+  });
+
+  setPhase(0);
+}
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
@@ -1601,5 +2079,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initProductModal();
   initShowcaseParallax();
   initSimulator();
+  initPhotoSim();
   setTimeout(initTilt, 200);
 });
