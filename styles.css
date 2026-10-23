@@ -2424,3 +2424,46 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   .sf-result-bar { flex-direction: column; }
   .sf-act-btn { justify-content: center; }
 }
+
+/* ===== SF ZONES LIST ===== */
+.sf-zones-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 0;
+  margin-top: 8px;
+}
+.sf-zone-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.sf-zone-chip:hover { border-color: var(--gold); }
+.sf-zone-chip.sf-zone-active { border-color: var(--gold); background: rgba(201,162,94,0.08); }
+.sf-zone-swatch {
+  width: 28px; height: 28px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.sf-zone-name { font-size: 0.72rem; color: var(--text); max-width: 90px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sf-zone-del {
+  width: 18px; height: 18px;
+  background: none; border: none;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 3px;
+  margin-left: 2px;
+  flex-shrink: 0;
+  transition: color 0.15s, background 0.15s;
+}
+.sf-zone-del:hover { color: #e05050; background: rgba(224,80,80,0.1); }
