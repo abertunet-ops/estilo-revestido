@@ -1,0 +1,47 @@
+TEXTURAS PARA EL SIMULADOR DE FOTOS
+=====================================
+Agregá aqui una foto plana (sin contexto de sala) de cada producto.
+El simulador la carga automaticamente si el nombre coincide.
+Formatos aceptados: .jpg  .png  .webp
+
+COMO SACAR LA FOTO:
+  - Apoyá el panel/tabla/placa en una pared o en el piso
+  - Foto de frente o cenital, lo mas plano posible
+  - Buena luz natural, sin flash fuerte
+  - El material debe llenar casi todo el encuadre
+
+NOMBRES ESPERADOS:
+------------------
+Wall Panels Interior:
+  textures/wi-dark.jpg       Wall Panel Oscuro
+  textures/wi-gray.jpg       Wall Panel Gris
+  textures/wi-sand.jpg       Wall Panel Arena
+  textures/wi-white.jpg      Wall Panel Blanco
+  textures/wi-walnut.jpg     Wall Panel Walnut
+  textures/wi-wfine.jpg      Wall Panel Walnut Fine
+  textures/wi-black.jpg      Wall Panel Black
+
+Placas PVC (marmol/colores):
+  textures/pm-mblanco.jpg    Marmol Blanco
+  textures/pm-mnegro.jpg     Marmol Negro
+  textures/pm-gray.jpg       Gris
+  textures/pm-white.jpg      All White
+  textures/pm-ablack.jpg     All Black
+
+Placas 3D:
+  textures/p3-ondas.jpg      Ondas
+  textures/p3-rombo.jpg      Rombo
+  textures/p3-lineas.jpg     Lineas
+
+Pisos Vinilicos:
+  textures/pv-ashdark.jpg    Ash Dark
+  textures/pv-ashgray.jpg    Ash Gray
+  textures/pv-roble.jpg      Roble Classic
+  textures/pv-castano.jpg    Castano Matiz
+  textures/pv-lgray.jpg      Light Gray
+  textures/pv-obsidian.jpg   Obsidian White
+  textures/pv-cotton.jpg     Soft Cotton
+  textures/pv-marfil.jpg     Marfil White
+  textures/pv-paraiso.jpg    Paraiso Soft
+
+Si el archivo no existe, el simulador usa el crop automatico de la imagen del catalogo.

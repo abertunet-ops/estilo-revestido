@@ -1887,6 +1887,20 @@ function initPhotoSim() {
     buildProdGrid(btn.dataset.cat);
   });
 
+  // Try loading textures/[key].jpg → .png → .webp in order; calls cb(img) or cb(null)
+  function tryLoadTexture(key, cb) {
+    const exts = ['jpg', 'png', 'webp'];
+    let i = 0;
+    function next() {
+      if (i >= exts.length) { cb(null); return; }
+      const img = new Image();
+      img.onload = () => cb(img);
+      img.onerror = () => { i++; next(); };
+      img.src = 'textures/' + key + '.' + exts[i++];
+    }
+    next();
+  }
+
   function selectProduct(key) {
     if (draftPts.length < 4 && activeLayer < 0) {
       instrEl.style.color = 'var(--gold)';
@@ -1894,19 +1908,15 @@ function initPhotoSim() {
       setTimeout(() => { instrEl.style.color = ''; updateInstr(); }, 2500);
       return;
     }
-    const cfg   = SF_CFG[key] || {};
-    const prod  = SIM_CATALOG[key];
-    const rawImg = loadImg(prod.img);
+    const cfg  = SF_CFG[key] || {};
+    const prod = SIM_CATALOG[key];
 
-    const finalize = (im) => {
-      const tex = makeCroppedCanvas(im, cfg.crop);
+    const applyTex = (im) => {
       if (activeLayer >= 0) {
-        // Update existing layer
         layers[activeLayer].key = key;
-        layers[activeLayer].tex = tex || im;
+        layers[activeLayer].tex = im;
       } else {
-        // Finalize draft as new layer
-        layers.push({ pts: draftPts.slice(), key, tex: tex || im });
+        layers.push({ pts: draftPts.slice(), key, tex: im });
         draftPts = [];
         activeLayer = layers.length - 1;
       }
@@ -1919,12 +1929,21 @@ function initPhotoSim() {
       render();
     };
 
-    if (rawImg.complete && rawImg.naturalWidth) {
-      finalize(rawImg);
-    } else {
-      rawImg.onload = () => finalize(rawImg);
-      rawImg.onerror = () => finalize(rawImg);
-    }
+    // 1. Try dedicated flat texture image first (textures/[key].jpg|png|webp)
+    tryLoadTexture(key, (texImg) => {
+      if (texImg) {
+        applyTex(texImg);
+        return;
+      }
+      // 2. Fall back to catalog image + auto-crop
+      const rawImg = loadImg(prod.img);
+      const finalize = (im) => {
+        const cropped = makeCroppedCanvas(im, cfg.crop);
+        applyTex(cropped || im);
+      };
+      if (rawImg.complete && rawImg.naturalWidth) finalize(rawImg);
+      else { rawImg.onload = () => finalize(rawImg); rawImg.onerror = () => finalize(rawImg); }
+    });
   }
 
   /* ---- Zones list ---- */
