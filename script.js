@@ -413,22 +413,440 @@ function initShowcaseParallax() {
   onScroll();
 }
 
+/* ===== PRODUCT DESCRIPTIONS (CB Group) ===== */
+const PRODUCT_DESCRIPTIONS = {
+  'wall-panel-interior': {
+    text: [
+      'Revestimiento para pared y techo Wall Panel desarrollado por la marca Kolertech.',
+      'Ultima tendencia mundial, decora tu casa de forma rapida y dale el look que se merece!',
+      'Podes decorar todos los ambientes, hasta podes ponerlo en el baño dejandolo super top!',
+      'El precio corresponde a 1 tira.'
+    ],
+    specs: [
+      ['Material', 'EPS (plástico de alta calidad)'],
+      ['Largo', '3 m'],
+      ['Ancho', '12 cm'],
+      ['Superficie', '0,36 m² / tira'],
+      ['Peso', '1,4 kg / unidad'],
+      ['Tipo de uso', 'Interior'],
+      ['Alistonado', '1,4 cm × 1,2 cm × 1 cm'],
+      ['x Caja', '10 unidades'],
+    ]
+  },
+  'wall-panel-interior-black': {
+    base: 'wall-panel-interior',
+    textExtra: ['Variante Black: elegancia en negro intenso. Ideal para TV walls y ambientes modernos.']
+  },
+  'wall-panel-interior-wallnut': {
+    base: 'wall-panel-interior',
+    textExtra: ['Variante Wallnut Fine: textura nogal fina. Calidez natural con practicidad del PVC.']
+  },
+  'wall-panel-exterior': {
+    text: [
+      'Revestimiento exterior de PVC de alta resistencia desarrollado por la marca Kolertech.',
+      'Resistente a la intemperie, rayos UV y lluvia. No requiere pintura ni mantenimiento.',
+      'Simil madera con sistema machimbre. Apto para fachadas, balcones y espacios exteriores.',
+      'El precio corresponde a 1 unidad.'
+    ],
+    specs: [
+      ['Material', 'PVC premium anti-UV'],
+      ['Largo', '3 m'],
+      ['Ancho', '12 cm'],
+      ['Superficie', '0,36 m² / unidad'],
+      ['Tipo de uso', 'Exterior'],
+      ['Ambientes', 'Fachadas, balcones, exteriores'],
+      ['Colores', '5 disponibles'],
+    ]
+  },
+  'placa-pvc-simil-marmol': {
+    text: [
+      'Placa simil marmol con una increible terminacion. Un revestimiento para exigentes en la decoracion!',
+      'El tamaño es de 1,22M × 2,44M × 3,3MM. Tienen la altura ideal para que no tengan uniones hasta el techo.',
+      'Antialeérgicos · Anti-humedad, anti-manchas, anti-termitas · Buen confort térmico · Fácil de instalar.',
+      'La instalacion se realiza de forma sencilla por personas capacitadas y se pega con adhesivos.'
+    ],
+    specs: [
+      ['Material', 'PVC (Baseboard + UV coating)'],
+      ['Largo', '2.440 mm'],
+      ['Ancho', '1.220 mm'],
+      ['Espesor', '3,3 mm'],
+      ['Superficie', '2,93 m² / placa'],
+      ['Acabado', 'Brillo'],
+      ['Peso', '30 kg'],
+      ['Tipo de uso', 'Interior'],
+    ]
+  },
+  'placa-marmol-blanco': {
+    base: 'placa-pvc-simil-marmol',
+    textExtra: ['Diseño mármol blanco con vetas suaves. Transforma cualquier pared en una pieza de diseño.']
+  },
+  'placa-pvc-simil-piedra': {
+    text: [
+      'Placa de gran formato simil piedra natural desarrollada por la marca Kolertech.',
+      'Textura piedra de alta definición con apariencia rústica y la practicidad del PVC.',
+      'Para interiores y exteriores cubiertos. No se deforma, no se mancha.',
+      'El precio corresponde a 1 placa.'
+    ],
+    specs: [
+      ['Material', 'PVC alto impacto'],
+      ['Largo', '2.800 mm'],
+      ['Ancho', '1.220 mm'],
+      ['Superficie', '3,42 m² / placa'],
+      ['Espesor', '4 mm'],
+      ['Tipo de uso', 'Interior / Exterior cubierto'],
+      ['Resistente a', 'Humedad, manchas'],
+    ]
+  },
+  'piedra-natural-flexible': {
+    text: [
+      'La Piedra Natural Flexible es un revestimiento de alta gama fabricado con una fina capa de piedra natural, conservando su textura, vetas y relieve originales.',
+      'Cada placa es única, refleja las características propias de la piedra aportando un acabado exclusivo y de gran impacto visual.',
+      'Formato 60×120 cm para crear superficies continuas con menos juntas: ambientes más amplios, modernos y elegantes.',
+      'Aplicaciones: living, comedor, hall de ingreso, muros de TV, recepciones, hoteles, restaurantes y más.'
+    ],
+    specs: [
+      ['Material', 'Piedra natural auténtica'],
+      ['Largo', '1.200 mm'],
+      ['Ancho', '600 mm'],
+      ['Superficie', '0,72 m² / placa'],
+      ['Característica', 'Liviana y flexible'],
+      ['Mantenimiento', 'Bajo'],
+      ['Instalación', 'Adhesivo directo'],
+      ['Uso', 'Residencial y comercial'],
+    ]
+  },
+  'placa-3d': {
+    text: [
+      'Placa 3D de PVC con relieve decorativo de alta definición.',
+      'Crea efectos de luz y sombra únicos. Ideal para paredes de acento, TV walls y ambientes modernos.',
+      'Liviana, impermeable y pintable. Sistema de instalación simple con pegamento.',
+      'El precio corresponde a 1 unidad (50×50 cm).'
+    ],
+    specs: [
+      ['Material', 'PVC liviano'],
+      ['Largo', '500 mm'],
+      ['Ancho', '500 mm'],
+      ['Superficie', '0,25 m² / unidad'],
+      ['Pintable', 'Sí'],
+      ['Tipo de uso', 'Interior'],
+      ['Instalación', 'Adhesivo o tornillos'],
+    ]
+  },
+  'piso-vinilico-spc-click': {
+    text: [
+      'Piso Vinílico SPC Kolertech 4.8mm - Tecnología Alemana. La evolución definitiva del piso flotante.',
+      'Gracias a su núcleo de polímero de piedra y PVC, ofrece una dureza extrema y estabilidad dimensional superior a cualquier vinílico tradicional.',
+      'Sistema CLICK (colocación en seco, sin pegamentos) · 100% Resistente al Agua · Hipoalergénico · Ignífugo · Alto Tránsito.',
+      'El precio corresponde a 1 caja (2,23 m², 10 tablas).'
+    ],
+    specs: [
+      ['Material', 'SPC (Piedra + Plástico)'],
+      ['Espesor total', '4,8 mm'],
+      ['Capa de uso', '0,3 mm'],
+      ['Rendimiento', '2,23 m² / caja (10 tablas)'],
+      ['Sistema', 'Click de alta precisión'],
+      ['Resistencia al agua', '100%'],
+      ['Colores', '13+ disponibles'],
+    ]
+  },
+  'piso-spc-click-simil-porcelanato': {
+    text: [
+      'Piso vinílico SPC con diseño y textura de porcelanato de la marca Kolertech.',
+      'Resistente al agua 100%, sin obra ni demolición. Ideal para baños y cocinas.',
+      'Aspecto cerámico con la practicidad y calidez del vinílico.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'SPC (Piedra + Plástico)'],
+      ['Espesor', '4 mm'],
+      ['Sistema', 'Click flotante'],
+      ['Resistencia al agua', '100%'],
+      ['Diseño', 'Simil porcelanato'],
+      ['Tipo de uso', 'Interior'],
+    ]
+  },
+  'piso-vinilico-wpc-click-premium': {
+    text: [
+      'Piso vinílico de alta gama con núcleo WPC (Madera + Plástico) de Kolertech.',
+      'La mejor opción en pisos vinílicos: 6mm de espesor con espuma integrada, ultra resistente.',
+      'Apto para calefacción radiante. Máximo confort bajo los pies.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'WPC (Madera + Plástico)'],
+      ['Espesor', '6 mm'],
+      ['Espuma', 'Integrada'],
+      ['Sistema', 'Click flotante'],
+      ['Radiant Heat', 'Compatible'],
+      ['Tipo de uso', 'Interior premium'],
+    ]
+  },
+  'piso-vinilico-para-pegar': {
+    text: [
+      'Piso vinílico en plancha para pegado directo de Kolertech.',
+      'Ideal para instalar sobre piso existente sin demolición. Reforma rápida y económica.',
+      'Resistente al agua y al tráfico intenso. Para comercios y hogares.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'Vinílico flexible'],
+      ['Espesor', '2 mm'],
+      ['Sistema', 'Pegado directo'],
+      ['Sin demolición', 'Sí'],
+      ['Tipo de uso', 'Interior comercial/residencial'],
+    ]
+  },
+  'piso-flotante-laminado': {
+    text: [
+      'Pisos flotantes AC4 8,3MM con sistema de encastre DOUBLE CLICK. La ecuación justa de precio y calidad.',
+      '880kg de presión en la compactación. Lámina BROWNCORE anti-humedad y película OVERLAY anti-desgaste y altos impactos, con protección UV.',
+      'Apropiado para casas y locales comerciales. No requiere pegamento. Apto para alérgicos.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'HDF melamínico'],
+      ['Espesor', '8,3 mm'],
+      ['Sistema', 'DOUBLE CLICK'],
+      ['Norma', 'ISO 9001 / AC4'],
+      ['Anti-humedad', 'BROWNCORE integrado'],
+      ['Colores', '23+ disponibles'],
+      ['Tipo de uso', 'Interior residencial y comercial'],
+    ]
+  },
+  'piso-flotante-alto-brillo': {
+    text: [
+      'Piso flotante con acabado laqueado ultra brilloso de Kolertech.',
+      'Efecto lacado elegante de alta gama. Resistente al rayado (capa AC4).',
+      'Fácil limpieza, refleja la luz creando ambientes luminosos y modernos.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'HDF melamínico brilloso'],
+      ['Capa de uso', 'AC4'],
+      ['Acabado', 'Alto brillo laqueado'],
+      ['Sistema', 'Click flotante'],
+      ['Tipo de uso', 'Interior residencial'],
+    ]
+  },
+  'flooran-art-piso-flotante': {
+    text: [
+      'Piso flotante melamínico Flooran Art de excelente relación precio/calidad.',
+      'Sistema click con espuma acústica incorporada. Amplia gama de vetas y colores.',
+      'Apto para ambientes secos: living, dormitorios y oficinas.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'HDF melamínico'],
+      ['Sistema', 'Click + espuma integrada'],
+      ['Tipo de uso', 'Interior seco'],
+      ['Marca', 'Flooran Art'],
+    ]
+  },
+  'zocalo-eps-7cm': {
+    text: [
+      'Zócalo EPS Kolertech. EL PRECIO CORRESPONDE A 1 TIRA. Especialmente desarrollado para facilitar las reformas por su practicidad.',
+      'Se puede aplicar sobre el zócalo anterior, sin remover el ya instalado.',
+      'De color blanco mate. Sin obra, sin clavos ni pegamento. Sistema de clips incluidos.',
+      'El precio corresponde a 1 tira de 2,25 m.'
+    ],
+    specs: [
+      ['Material', 'EPS (foam expandido)'],
+      ['Alto', '7 cm (70 mm)'],
+      ['Espesor', '22 mm'],
+      ['Largo tira', '2.250 mm (2,25 m)'],
+      ['Color', 'Blanco mate'],
+      ['x Envase', '10 tiras'],
+      ['Sistema', 'Clips incluidos'],
+    ]
+  },
+  'zocalo-eps-10cm': {
+    text: [
+      'Zócalo EPS Kolertech de 10 cm. EL PRECIO CORRESPONDE A 1 TIRA.',
+      'Especialmente desarrollado para facilitar las reformas. Se puede aplicar sobre el zócalo anterior sin remover el ya instalado.',
+      'Mayor altura para ambientes con cielorrasos altos. Sin obra, sin clavos ni pegamento.',
+      'El precio corresponde a 1 tira de 2,25 m.'
+    ],
+    specs: [
+      ['Material', 'EPS (foam expandido)'],
+      ['Alto', '10 cm (100 mm)'],
+      ['Espesor', '22 mm'],
+      ['Largo tira', '2.250 mm (2,25 m)'],
+      ['Color', 'Blanco mate'],
+      ['x Envase', '10 tiras'],
+      ['Sistema', 'Clips incluidos'],
+    ]
+  },
+  'zocalo-eps-led-10cm': {
+    text: [
+      'Zócalo EPS de 10 cm con canal interno para tira LED de Kolertech.',
+      'Iluminación ambiental rasante en piso. Efecto moderno único sin instalación eléctrica compleja.',
+      'El precio corresponde a 1 metro lineal.'
+    ],
+    specs: [
+      ['Material', 'EPS (foam expandido)'],
+      ['Alto', '10 cm'],
+      ['Canal LED', 'Incluido'],
+      ['Color', 'Blanco'],
+      ['Sistema', 'Clips'],
+    ]
+  },
+  'wall-panel-wpc-acanalado': {
+    text: [
+      'Revestimiento premium WPC acanalado. EL PRECIO CORRESPONDE A 1 TIRA. Medidas: 24,5×218×3000mm.',
+      'Fabricado en WPC (madera reciclada + polímeros): dureza, estabilidad y calidez con capa Co-Extrusion simil madera en todas sus caras.',
+      'No requiere mantenimiento · No se decolora con el sol · No se mancha · No se pudre · Resistente a la intemperie.',
+      'Se puede cortar con sierras para madera. Se coloca clavándolos o con pegamento. No necesita clips.'
+    ],
+    specs: [
+      ['Material', 'WPC (madera reciclada + polímeros)'],
+      ['Acabado', 'Co-Extrusion simil madera'],
+      ['Largo', '3.000 mm'],
+      ['Ancho tira', '218 mm (21,8 cm)'],
+      ['Espesor', '24,5 mm'],
+      ['Anti-UV', 'Sí'],
+      ['Tipo de uso', 'Interior y Exterior'],
+    ]
+  },
+  'siding-panel-wpc-revestimiento': {
+    text: [
+      'Paneles de siding WPC para revestimiento de fachadas y paredes exteriores.',
+      'Efecto madera natural con acabado premium. Instalación horizontal tipo siding americano.',
+      'Resistente a la intemperie, lluvia y radiación solar. Cero mantenimiento.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'WPC (Madera + Plástico)'],
+      ['Instalación', 'Horizontal (siding)'],
+      ['Tipo de uso', 'Exterior / Fachadas'],
+      ['Anti-UV', 'Sí'],
+    ]
+  },
+  'placa-autoadhesiva-pvc': {
+    text: [
+      'Placa de PVC con dorso adhesivo 3M de alta resistencia.',
+      'Sin pegamento extra, sin herramientas. Instalación en minutos. Ideal para reformas rápidas.',
+      'Apto para baños, cocinas y comercios. Textura mármol y madera.',
+      'El precio corresponde a 1 m².'
+    ],
+    specs: [
+      ['Material', 'PVC flexible'],
+      ['Adhesivo', '3M dorso'],
+      ['Tipo de uso', 'Interior'],
+      ['Instalación', 'Sin herramientas'],
+      ['Diseños', 'Múltiples'],
+    ]
+  },
+  'deck-wpc-tablas': {
+    text: [
+      'Deck WPC Línea Premium, sólido con Co-Extrusion de alta calidad. El más resistente y fuerte del mercado.',
+      'Combina la calidez estética de la madera natural con la durabilidad extrema del PVC rígido.',
+      'Resistencia Total (UV y temperaturas extremas) · Bajo Mantenimiento (solo agua y jabón) · Antideslizante · No genera astillas · Sustentable (fibras recicladas).',
+      'El precio corresponde a 1 metro lineal. Se coloca sobre alfajías separadas 35–40 cm.'
+    ],
+    specs: [
+      ['Material', 'WPC sólido bi-color Co-Extrusion'],
+      ['Largo', '220 cm'],
+      ['Ancho', '14 cm'],
+      ['Espesor', '23 mm'],
+      ['Rendimiento', '0,31 m² / tabla'],
+      ['Anti-UV', 'Sí'],
+      ['Tipo de uso', 'Exterior / Terrazas / Piscinas'],
+    ]
+  },
+  'deck-wpc-kit-elm': {
+    text: [
+      'Kit completo de deck WPC macizo ELM con clips y accesorios de Kolertech.',
+      'La opción más robusta y duradera. Estructura más sólida para terrazas con tráfico intenso.',
+      'Incluye tablas, clips de fijación y terminaciones.',
+      'El precio corresponde a 1 metro lineal.'
+    ],
+    specs: [
+      ['Material', 'WPC macizo ELM'],
+      ['Tipo', 'Kit completo'],
+      ['Incluye', 'Tablas + clips + accesorios'],
+      ['Tipo de uso', 'Exterior / Terrazas premium'],
+    ]
+  },
+  'deck-wpc-baldosas-modulares': {
+    text: [
+      'Baldosas WPC modulares de 30×40 cm o 30×30 cm de Kolertech.',
+      'Instalan directamente sobre el piso existente. Sin estructura, sin tornillos. Clip entre sí.',
+      'Se desarman fácil. Perfectas para balcones y terrazas.',
+      'El precio corresponde a 1 metro lineal.'
+    ],
+    specs: [
+      ['Material', 'WPC'],
+      ['Dimensiones', '30×40 cm o 30×30 cm'],
+      ['Sistema', 'Modulares con clips'],
+      ['Sin estructura', 'Sí'],
+      ['Tipo de uso', 'Exterior / Balcones'],
+      ['Colores', 'Jade, Chocolate, Basic'],
+    ]
+  },
+  'cesped-sintetico-premium': {
+    text: [
+      'Césped Sintético PREMIUM Garden Style. Calidad premium de 20mm de altura de fibra.',
+      'Aspecto natural, no requiere riego ni corte. Resistente a rayos UV, lluvia y tráfico intenso.',
+      'Ideal para jardines, balcones, terrazas, jardines de infantes y espacios comerciales.',
+      'El precio corresponde a 1 m². Se vende en rollos desde 0,5m de largo hasta 25m.'
+    ],
+    specs: [
+      ['Marca', 'Garden Style'],
+      ['Altura de fibra', '20 mm'],
+      ['Ancho rollo', '2 m'],
+      ['Largo mínimo', '0,5 m'],
+      ['Largo máximo', '25 m (sin unión)'],
+      ['Tipo de uso', 'Interior / Exterior'],
+      ['Anti-UV', 'Sí'],
+    ]
+  },
+};
+
+function getProductDescription(title) {
+  const key = title
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  // Direct match
+  if (PRODUCT_DESCRIPTIONS[key]) return PRODUCT_DESCRIPTIONS[key];
+  // Partial match
+  const found = Object.entries(PRODUCT_DESCRIPTIONS).find(([k]) => key.includes(k) || k.includes(key));
+  if (found) return found[1];
+  return null;
+}
+
+function renderFullDesc(descData, fallbackText) {
+  if (!descData) return `<p>${fallbackText}</p>`;
+  const base = descData.base ? PRODUCT_DESCRIPTIONS[descData.base] : descData;
+  const texts = [...(base.text || []), ...(descData.textExtra || [])];
+  const specs = base.specs || [];
+
+  let html = texts.map(t => `<p>${t}</p>`).join('');
+  if (specs.length) {
+    html += '<ul class="pm-specs-list">' +
+      specs.map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('') +
+      '</ul>';
+  }
+  return html;
+}
+
 /* ===== PRODUCT DETAIL MODAL ===== */
 function initProductModal() {
   const overlay = document.getElementById('productModal');
   if (!overlay) return;
 
-  const pmClose  = document.getElementById('pmClose');
-  const pmImg    = document.getElementById('pmImg');
-  const pmCat    = document.getElementById('pmCategory');
-  const pmName   = document.getElementById('pmName');
-  const pmDesc   = document.getElementById('pmDesc');
-  const pmSpecs  = document.getElementById('pmSpecs');
-  const pmColors = document.getElementById('pmColors');
-  const pmPrice  = document.getElementById('pmPrice');
-  const pmUnit   = document.getElementById('pmUnit');
-  const pmAdd    = document.getElementById('pmAddBtn');
-  const pmWa     = document.getElementById('pmWaBtn');
+  const pmClose    = document.getElementById('pmClose');
+  const pmImg      = document.getElementById('pmImg');
+  const pmCat      = document.getElementById('pmCategory');
+  const pmName     = document.getElementById('pmName');
+  const pmFullDesc = document.getElementById('pmFullDesc');
+  const pmSpecs    = document.getElementById('pmSpecs');
+  const pmColors   = document.getElementById('pmColors');
+  const pmPrice    = document.getElementById('pmPrice');
+  const pmUnit     = document.getElementById('pmUnit');
+  const pmAdd      = document.getElementById('pmAddBtn');
+  const pmWa       = document.getElementById('pmWaBtn');
 
   function parseCoverage(card) {
     const specs = [...card.querySelectorAll('.card-spec')].map(s => s.textContent.trim());
@@ -554,17 +972,23 @@ function initProductModal() {
     pmImg.alt = title;
     pmCat.textContent  = category;
     pmName.textContent = title;
-    pmDesc.textContent = desc;
     pmPrice.textContent = priceEl ? priceEl.textContent : '';
     pmUnit.textContent  = unitEl  ? unitEl.textContent  : '';
 
+    // Full description from CB Group data or fallback to card desc
+    const descData = getProductDescription(title);
+    pmFullDesc.innerHTML = renderFullDesc(descData, desc);
+
+    // Specs chips (only show if no full desc with built-in specs)
     pmSpecs.innerHTML = '';
-    card.querySelectorAll('.card-spec').forEach(s => {
-      const el = document.createElement('span');
-      el.className = 'pm-spec-chip';
-      el.textContent = s.textContent;
-      pmSpecs.appendChild(el);
-    });
+    if (!descData) {
+      card.querySelectorAll('.card-spec').forEach(s => {
+        const el = document.createElement('span');
+        el.className = 'pm-spec-chip';
+        el.textContent = s.textContent;
+        pmSpecs.appendChild(el);
+      });
+    }
 
     pmColors.innerHTML = '';
     card.querySelectorAll('.color-chip').forEach(c => {

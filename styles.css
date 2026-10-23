@@ -1625,6 +1625,62 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 }
 .pm-btn-wa:hover { border-color: rgba(37,211,102,0.4); color: #25d366; }
 
+/* ===== DESCRIPCION COMPLETA MODAL ===== */
+.pm-full-desc {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.pm-full-desc p { margin-bottom: 10px; }
+.pm-full-desc p:last-child { margin-bottom: 0; }
+.pm-full-desc .pm-desc-note {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+  margin-top: -4px;
+}
+.pm-full-desc .pm-specs-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 14px;
+}
+.pm-full-desc .pm-specs-list li {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 4px;
+}
+.pm-full-desc .pm-specs-list li strong {
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ===== MEDIOS DE PAGO (MODAL) ===== */
+.pm-payment {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 2px;
+}
+.pm-payment-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+.pm-payment-item svg { flex-shrink: 0; opacity: 0.6; }
+
 /* ===== MINI CALCULADORA (MODAL) ===== */
 .pm-calc {
   margin-top: 18px;
