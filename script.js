@@ -2088,8 +2088,8 @@ function initPhotoSim() {
     const iW = texImg.naturalWidth || texImg.width;
     const iH = texImg.naturalHeight || texImg.height;
 
-    // Tile the texture so it repeats like real panels/tiles instead of stretching
-    const TILES = 4;
+    // Tile texture so panels/tiles repeat naturally instead of stretching
+    const TILES = 3;
     const tiled = document.createElement('canvas');
     tiled.width = iW * TILES;
     tiled.height = iH * TILES;
@@ -2098,8 +2098,7 @@ function initPhotoSim() {
       for (let tx = 0; tx < TILES; tx++)
         tc.drawImage(texImg, tx * iW, ty * iH);
 
-    // Draw mapped texture to an offscreen canvas first (source-over, no multiply)
-    // This way dark objects (TV, furniture) are correctly covered by the texture
+    // Pass 1: render texture to offscreen canvas (source-over — covers dark objects correctly)
     const tmp = document.createElement('canvas');
     tmp.width = tCtx.canvas.width;
     tmp.height = tCtx.canvas.height;
@@ -2111,12 +2110,24 @@ function initPhotoSim() {
         const s0=i/N, t0=j/N, s1=(i+1)/N, t1=(j+1)/N;
         const p00=sfBilerp(poly,s0,t0), p10=sfBilerp(poly,s1,t0);
         const p11=sfBilerp(poly,s1,t1), p01=sfBilerp(poly,s0,t1);
-        sfTexTri(tc2,tiled,p00,p10,p11, s0*tW,t0*tH, s1*tW,t0*tH, s1*tW,t1*tH);
-        sfTexTri(tc2,tiled,p00,p11,p01, s0*tW,t0*tH, s1*tW,t1*tH, s0*tW,t1*tH);
+        sfTexTri(tc2, tiled, p00,p10,p11, s0*tW,t0*tH, s1*tW,t0*tH, s1*tW,t1*tH);
+        sfTexTri(tc2, tiled, p00,p11,p01, s0*tW,t0*tH, s1*tW,t1*tH, s0*tW,t1*tH);
       }
     }
 
-    // Composite onto main canvas with desired opacity (source-over covers dark elements)
+    // Pass 2: blend room lighting back onto texture using soft-light
+    // This gives the material the natural shadows/highlights of the room
+    tc2.save();
+    tc2.beginPath();
+    poly.forEach((p, i) => i ? tc2.lineTo(p.x, p.y) : tc2.moveTo(p.x, p.y));
+    tc2.closePath();
+    tc2.clip();
+    tc2.globalAlpha = 0.30;
+    tc2.globalCompositeOperation = 'soft-light';
+    tc2.drawImage(photoImg, 0, 0, tmp.width, tmp.height);
+    tc2.restore();
+
+    // Composite final result onto main canvas at user-chosen opacity
     tCtx.save();
     tCtx.globalAlpha = alpha;
     tCtx.drawImage(tmp, 0, 0);
