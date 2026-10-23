@@ -327,6 +327,70 @@ function initCalculator() {
   });
 }
 
+/* ===== SHOWCASE PARALLAX ===== */
+function initShowcaseParallax() {
+  const items = document.querySelectorAll('.showcase-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    item._mx = 0;
+    item._my = 0;
+  });
+
+  function getScrollY(item) {
+    const rect = item.getBoundingClientRect();
+    const viewH = window.innerHeight;
+    const progress = 1 - (rect.bottom / (viewH + rect.height));
+    return (progress - 0.5) * 110;
+  }
+
+  function applyTransform(item) {
+    const bg = item.querySelector('.showcase-bg');
+    if (!bg) return;
+    const sy = getScrollY(item);
+    bg.style.transform = `translate(${item._mx}px, ${sy + item._my}px)`;
+  }
+
+  function onScroll() {
+    items.forEach(item => {
+      const rect = item.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      applyTransform(item);
+    });
+  }
+
+  items.forEach(item => {
+    item.addEventListener('mousemove', e => {
+      const rect = item.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      item._mx = x * 22;
+      item._my = y * 14;
+      applyTransform(item);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      const bg = item.querySelector('.showcase-bg');
+      if (bg) bg.style.transition = 'transform 0.7s ease';
+      item._mx = 0;
+      item._my = 0;
+      applyTransform(item);
+      setTimeout(() => { if (bg) bg.style.transition = ''; }, 700);
+    });
+
+    item.addEventListener('click', e => {
+      const target = item.dataset.filterTarget;
+      if (target) {
+        const btn = document.querySelector(`[data-filter="${target}"]`);
+        if (btn) btn.click();
+      }
+    });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initSlideshow();
@@ -335,5 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initFilters();
   initCart();
   initCalculator();
+  initShowcaseParallax();
   setTimeout(initTilt, 200);
 });
