@@ -1430,14 +1430,16 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   inset: 0;
   z-index: 9000;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 20px;
+  padding: 24px 20px;
   background: rgba(8,7,5,0.88);
   backdrop-filter: blur(8px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .pm-overlay.open {
   opacity: 1;
@@ -1450,12 +1452,14 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   border-radius: 3px;
   width: 100%;
   max-width: 960px;
-  max-height: 90vh;
+  max-height: calc(100vh - 48px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   transform: translateY(32px) scale(0.97);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   scrollbar-width: thin;
   scrollbar-color: rgba(201,162,94,0.2) transparent;
+  align-self: flex-start;
 }
 .pm-overlay.open .pm-panel {
   transform: translateY(0) scale(1);
