@@ -327,6 +327,23 @@ function initCalculator() {
   });
 }
 
+/* ===== LENIS SMOOTH SCROLL ===== */
+let lenisInstance = null;
+
+function initLenis() {
+  if (typeof Lenis === 'undefined') return;
+  lenisInstance = new Lenis({
+    duration: 1.25,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  function raf(time) {
+    lenisInstance.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}
+
 /* ===== SHOWCASE PARALLAX ===== */
 function initShowcaseParallax() {
   const items = document.querySelectorAll('.showcase-item');
@@ -387,12 +404,18 @@ function initShowcaseParallax() {
     });
   });
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+  // Integrate with Lenis if available, fallback to native scroll
+  if (lenisInstance) {
+    lenisInstance.on('scroll', onScroll);
+  } else {
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
   onScroll();
 }
 
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
+  initLenis();
   initSlideshow();
   initNav();
   initReveal();
