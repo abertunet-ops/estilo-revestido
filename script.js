@@ -2087,18 +2087,39 @@ function initPhotoSim() {
   function applyTex(tCtx, texImg, poly, alpha) {
     const iW = texImg.naturalWidth || texImg.width;
     const iH = texImg.naturalHeight || texImg.height;
-    tCtx.save();
-    tCtx.globalAlpha = alpha;
-    tCtx.globalCompositeOperation = 'multiply';
+
+    // Tile the texture so it repeats like real panels/tiles instead of stretching
+    const TILES = 4;
+    const tiled = document.createElement('canvas');
+    tiled.width = iW * TILES;
+    tiled.height = iH * TILES;
+    const tc = tiled.getContext('2d');
+    for (let ty = 0; ty < TILES; ty++)
+      for (let tx = 0; tx < TILES; tx++)
+        tc.drawImage(texImg, tx * iW, ty * iH);
+
+    // Draw mapped texture to an offscreen canvas first (source-over, no multiply)
+    // This way dark objects (TV, furniture) are correctly covered by the texture
+    const tmp = document.createElement('canvas');
+    tmp.width = tCtx.canvas.width;
+    tmp.height = tCtx.canvas.height;
+    const tc2 = tmp.getContext('2d');
+    const tW = tiled.width, tH = tiled.height;
+
     for (let j = 0; j < N; j++) {
       for (let i = 0; i < N; i++) {
         const s0=i/N, t0=j/N, s1=(i+1)/N, t1=(j+1)/N;
         const p00=sfBilerp(poly,s0,t0), p10=sfBilerp(poly,s1,t0);
         const p11=sfBilerp(poly,s1,t1), p01=sfBilerp(poly,s0,t1);
-        sfTexTri(tCtx,texImg,p00,p10,p11,s0*iW,t0*iH,s1*iW,t0*iH,s1*iW,t1*iH);
-        sfTexTri(tCtx,texImg,p00,p11,p01,s0*iW,t0*iH,s1*iW,t1*iH,s0*iW,t1*iH);
+        sfTexTri(tc2,tiled,p00,p10,p11, s0*tW,t0*tH, s1*tW,t0*tH, s1*tW,t1*tH);
+        sfTexTri(tc2,tiled,p00,p11,p01, s0*tW,t0*tH, s1*tW,t1*tH, s0*tW,t1*tH);
       }
     }
+
+    // Composite onto main canvas with desired opacity (source-over covers dark elements)
+    tCtx.save();
+    tCtx.globalAlpha = alpha;
+    tCtx.drawImage(tmp, 0, 0);
     tCtx.restore();
   }
 
