@@ -230,7 +230,7 @@ const PRODUCTS_CALC = {
   // Deck WPC (precio por metro lineal)
   'deck-wpc':           { name: 'Deck WPC Tablas',                price: 168342, ml: 1,     unit: 'm', perMl: true },
   'deck-kit':           { name: 'Deck WPC Kit ELM',               price: 174756, ml: 1,     unit: 'm', perMl: true },
-  'deck-baldosa':       { name: 'Deck WPC Baldosas',              price: 103849, ml: 1,     unit: 'm', perMl: true },
+  'tirante-wpc':        { name: 'Tirante WPC 30×40mm',            price: 103849, ml: 1,     unit: 'm', perMl: true },
   // Zócalos (precio por metro lineal)
   'zocalo-7':           { name: 'Zócalo EPS 7cm + Clips',         price: 6005,   ml: 1,     unit: 'm', perMl: true },
   'zocalo-10':          { name: 'Zócalo EPS 10cm + Clips',        price: 9968,   ml: 1,     unit: 'm', perMl: true },
@@ -767,19 +767,20 @@ const PRODUCT_DESCRIPTIONS = {
       ['Tipo de uso', 'Exterior / Terrazas premium'],
     ]
   },
-  'deck-wpc-baldosas-modulares': {
+  'tirante-wpc-30x40mm': {
     text: [
-      'Baldosas WPC modulares de 30×40 cm o 30×30 cm de Kolertech.',
-      'Instalan directamente sobre el piso existente. Sin estructura, sin tornillos. Clip entre sí.',
-      'Se desarman fácil. Perfectas para balcones y terrazas.',
+      'Perfil estructural hueco de WPC (Wood Plastic Composite) de sección 30×40 mm, marca Kolertech.',
+      'Ideal para armar la subestructura de decks, revestimientos de fachada y cielorrasos.',
+      'Resistente al agua, hongos y pudrición. Sin mantenimiento. Se corta a medida con sierra común.',
       'El precio corresponde a 1 metro lineal.'
     ],
     specs: [
-      ['Material', 'WPC'],
-      ['Dimensiones', '30×40 cm o 30×30 cm'],
-      ['Sistema', 'Modulares con clips'],
-      ['Sin estructura', 'Sí'],
-      ['Tipo de uso', 'Exterior / Balcones'],
+      ['Material', 'WPC (madera + plástico)'],
+      ['Sección', '30 × 40 mm'],
+      ['Tipo', 'Perfil hueco estructural'],
+      ['Resistencia al agua', '100%'],
+      ['Anti-hongos / pudrición', 'Sí'],
+      ['Tipo de uso', 'Estructura / Exterior'],
       ['Colores', 'Jade, Chocolate, Basic'],
     ]
   },
