@@ -2106,14 +2106,16 @@ function initPhotoSim() {
       }
     }
 
-    // Pass 2: blend room lighting back with soft-light so texture picks up natural shadows/highlights
+    // Pass 2: apply room luminance to texture via 'luminosity' blend
+    // Texture keeps its hue+saturation (its color identity); room photo provides the brightness.
+    // This adapts the material to room lighting without burning dark areas to black.
     tc2.save();
     tc2.beginPath();
     poly.forEach((p, i) => i ? tc2.lineTo(p.x, p.y) : tc2.moveTo(p.x, p.y));
     tc2.closePath();
     tc2.clip();
-    tc2.globalAlpha = 0.30;
-    tc2.globalCompositeOperation = 'soft-light';
+    tc2.globalAlpha = 0.60;
+    tc2.globalCompositeOperation = 'luminosity';
     tc2.drawImage(photoImg, 0, 0, tmp.width, tmp.height);
     tc2.restore();
 
