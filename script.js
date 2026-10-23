@@ -413,6 +413,88 @@ function initShowcaseParallax() {
   onScroll();
 }
 
+/* ===== PRODUCT DETAIL MODAL ===== */
+function initProductModal() {
+  const overlay = document.getElementById('productModal');
+  if (!overlay) return;
+
+  const pmClose  = document.getElementById('pmClose');
+  const pmImg    = document.getElementById('pmImg');
+  const pmCat    = document.getElementById('pmCategory');
+  const pmName   = document.getElementById('pmName');
+  const pmDesc   = document.getElementById('pmDesc');
+  const pmSpecs  = document.getElementById('pmSpecs');
+  const pmColors = document.getElementById('pmColors');
+  const pmPrice  = document.getElementById('pmPrice');
+  const pmUnit   = document.getElementById('pmUnit');
+  const pmAdd    = document.getElementById('pmAddBtn');
+  const pmWa     = document.getElementById('pmWaBtn');
+
+  function openModal(card) {
+    const img      = card.querySelector('.card-image-wrap img');
+    const category = card.querySelector('.card-category')?.textContent || '';
+    const title    = card.querySelector('.card-title')?.textContent || '';
+    const desc     = card.querySelector('.card-desc')?.textContent || '';
+    const priceEl  = card.querySelector('.card-price');
+    const unitEl   = card.querySelector('.card-price-unit');
+
+    pmImg.src = img ? img.src : '';
+    pmImg.alt = title;
+    pmCat.textContent  = category;
+    pmName.textContent = title;
+    pmDesc.textContent = desc;
+    pmPrice.textContent = priceEl ? priceEl.textContent : '';
+    pmUnit.textContent  = unitEl  ? unitEl.textContent  : '';
+
+    pmSpecs.innerHTML = '';
+    card.querySelectorAll('.card-spec').forEach(s => {
+      const el = document.createElement('span');
+      el.className = 'pm-spec-chip';
+      el.textContent = s.textContent;
+      pmSpecs.appendChild(el);
+    });
+
+    pmColors.innerHTML = '';
+    card.querySelectorAll('.color-chip').forEach(c => {
+      const el = document.createElement('span');
+      el.className = 'pm-color-chip';
+      el.textContent = c.textContent;
+      pmColors.appendChild(el);
+    });
+
+    pmAdd.onclick = () => {
+      const priceRaw = (priceEl?.textContent || '').replace(/[$.,\s]/g, '');
+      const price = parseInt(priceRaw) || 0;
+      addToCart(title, price, img ? img.src : '');
+      closeModal();
+    };
+
+    const waMsg = `Hola, me interesa el producto:\n• ${title}\n• Precio: ${priceEl?.textContent || ''} ${unitEl?.textContent || ''}\n\n¿Pueden darme más información y precio de colocación?`;
+    pmWa.href = `https://wa.me/542214374605?text=${encodeURIComponent(waMsg)}`;
+
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  pmClose?.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.card-add-btn')) return;
+      openModal(card);
+    });
+  });
+}
+
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
@@ -422,6 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFilters();
   initCart();
   initCalculator();
+  initProductModal();
   initShowcaseParallax();
   setTimeout(initTilt, 200);
 });
