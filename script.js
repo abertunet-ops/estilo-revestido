@@ -2088,32 +2088,7 @@ function initPhotoSim() {
     const iW = texImg.naturalWidth || texImg.width;
     const iH = texImg.naturalHeight || texImg.height;
 
-    // Auto-tile if polygon is much larger than the texture to avoid blurry upscaling.
-    // Estimate polygon span to determine tile count (0.8 factor = slight downscale keeps quality).
-    const xs = poly.map(p => p.x), ys = poly.map(p => p.y);
-    const polyW = Math.max(...xs) - Math.min(...xs);
-    const polyH = Math.max(...ys) - Math.min(...ys);
-    const tilesX = Math.max(1, Math.round(polyW / iW * 0.8));
-    const tilesY = Math.max(1, Math.round(polyH / iH * 0.8));
-
-    let drawSrc = texImg;
-    let tW = iW, tH = iH;
-    if (tilesX > 1 || tilesY > 1) {
-      const tiled = document.createElement('canvas');
-      tiled.width = iW * tilesX;
-      tiled.height = iH * tilesY;
-      const tc = tiled.getContext('2d');
-      tc.imageSmoothingEnabled = true;
-      tc.imageSmoothingQuality = 'high';
-      for (let ty = 0; ty < tilesY; ty++)
-        for (let tx = 0; tx < tilesX; tx++)
-          tc.drawImage(texImg, tx * iW, ty * iH);
-      drawSrc = tiled;
-      tW = tiled.width;
-      tH = tiled.height;
-    }
-
-    // Pass 1: render texture to offscreen canvas (source-over — correctly covers dark objects)
+    // Pass 1: render stretched texture to offscreen canvas (source-over — correctly covers dark objects)
     const tmp = document.createElement('canvas');
     tmp.width = tCtx.canvas.width;
     tmp.height = tCtx.canvas.height;
@@ -2126,8 +2101,8 @@ function initPhotoSim() {
         const s0=i/N, t0=j/N, s1=(i+1)/N, t1=(j+1)/N;
         const p00=sfBilerp(poly,s0,t0), p10=sfBilerp(poly,s1,t0);
         const p11=sfBilerp(poly,s1,t1), p01=sfBilerp(poly,s0,t1);
-        sfTexTri(tc2, drawSrc, p00,p10,p11, s0*tW,t0*tH, s1*tW,t0*tH, s1*tW,t1*tH);
-        sfTexTri(tc2, drawSrc, p00,p11,p01, s0*tW,t0*tH, s1*tW,t1*tH, s0*tW,t1*tH);
+        sfTexTri(tc2, texImg, p00,p10,p11, s0*iW,t0*iH, s1*iW,t0*iH, s1*iW,t1*iH);
+        sfTexTri(tc2, texImg, p00,p11,p01, s0*iW,t0*iH, s1*iW,t1*iH, s0*iW,t1*iH);
       }
     }
 
