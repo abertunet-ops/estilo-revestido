@@ -15,6 +15,38 @@ function initSlideshow() {
   setInterval(next, 5000);
 }
 
+/* ===== VIDEO SCROLL SCRUB ===== */
+function initVideoScrub() {
+  const section = document.getElementById('procesoReel');
+  const video   = document.getElementById('procesoVideo');
+  const bar     = document.getElementById('vscrubBar');
+  if (!section || !video) return;
+
+  function getProgress() {
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    const scrollable = section.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    return Math.max(0, Math.min(1, (window.scrollY - top) / scrollable));
+  }
+
+  function render() {
+    if (!video.duration) return;
+    const p = getProgress();
+    video.currentTime = p * video.duration;
+    if (bar) bar.style.transform = `scaleX(${p})`;
+  }
+
+  let queued = false;
+  function schedule() {
+    if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; render(); }); }
+  }
+  window.__vsSchedule = schedule;
+
+  video.addEventListener('loadedmetadata', render);
+  window.addEventListener('resize', schedule, { passive: true });
+  render();
+}
+
 /* ===== NAV SCROLL ===== */
 function initNav() {
   const nav = document.querySelector('.nav');
@@ -327,6 +359,7 @@ function initLenis() {
   });
   function raf(time) {
     lenisInstance.raf(time);
+    window.__vsSchedule && window.__vsSchedule();
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
@@ -2296,6 +2329,7 @@ function initPhotoSim() {
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initSlideshow();
+  initVideoScrub();
   initNav();
   initReveal();
   initFilters();
