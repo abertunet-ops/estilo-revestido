@@ -1,18 +1,123 @@
-﻿/* ===== HERO SLIDESHOW ===== */
-function initSlideshow() {
-  const slides = document.querySelectorAll('.hero-slide');
-  const counter = document.querySelector('.slide-current');
-  if (!slides.length) return;
-  let current = 0;
+﻿/* ===== HERO INMERSIVO 3D ===== */
+function initHeroImmersive() {
+  const world   = document.getElementById('h3dWorld');
+  const pCanvas = document.getElementById('heroParticles');
+  if (!world || !pCanvas) return;
 
-  function next() {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-    if (counter) counter.textContent = String(current + 1).padStart(2, '0');
+  const cards = [...world.querySelectorAll('.h3d-card')];
+  const hero  = document.querySelector('.hero');
+
+  // [tx, ty, tz, ry, rz, w, h, floatAmp, floatPhase]
+  const CFG = [
+    { tx:  370, ty: -70,  tz:  60, ry:  16, rz: -2.5, w: 240, h: 330, amp: 22, phase: 0.0 },
+    { tx:  580, ty: 120,  tz: -10, ry:  22, rz:  2.0, w: 155, h: 210, amp: 14, phase: 1.8 },
+    { tx: -540, ty: -40,  tz: -20, ry: -18, rz:  2.5, w: 200, h: 285, amp: 18, phase: 0.9 },
+    { tx:  210, ty: 225,  tz:  30, ry:   8, rz: -1.5, w: 155, h: 210, amp: 12, phase: 2.7 },
+    { tx:  380, ty:  10,  tz:-280, ry:   3, rz:  0.5, w: 500, h: 300, amp:  5, phase: 1.4 },
+  ];
+
+  CFG.forEach((cfg, i) => {
+    const c = cards[i];
+    if (!c) return;
+    c.style.width      = cfg.w + 'px';
+    c.style.height     = cfg.h + 'px';
+    c.style.marginLeft = (-cfg.w / 2) + 'px';
+    c.style.marginTop  = (-cfg.h / 2) + 'px';
+  });
+
+  let mx = 0, my = 0, tgtX = 0, tgtY = 0, t = 0, visible = true;
+
+  window.addEventListener('mousemove', e => {
+    tgtX = (e.clientX / window.innerWidth  - 0.5) * 2;
+    tgtY = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', e => {
+      tgtX = Math.max(-1, Math.min(1, (e.gamma || 0) / 25));
+      tgtY = Math.max(-1, Math.min(1, ((e.beta  || 45) - 45) / 25));
+    }, { passive: true });
   }
 
-  setInterval(next, 5000);
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: 0.05 })
+      .observe(hero);
+  }
+
+  const scale = () => Math.min(1, Math.max(0.42, window.innerWidth / 1400));
+
+  function renderCards() {
+    const s = scale();
+    cards.forEach((card, i) => {
+      const c = CFG[i];
+      if (!c) return;
+      const fy = Math.sin(t + c.phase) * c.amp;
+      const fr = Math.sin(t * 0.55 + c.phase + 0.4) * 1.8;
+      card.style.transform =
+        `translate3d(${c.tx*s}px,${(c.ty+fy)*s}px,${c.tz*s}px) ` +
+        `rotateY(${c.ry + mx*2.5}deg) rotateZ(${c.rz+fr*0.35}deg)`;
+    });
+  }
+
+  function renderWorld() {
+    world.style.transform =
+      `translate3d(-50%,-50%,0) rotateX(${-my*5}deg) rotateY(${mx*7}deg)`;
+  }
+
+  /* ---- Partículas ---- */
+  const pCtx = pCanvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NUM = reduced ? 0 : 65;
+  const parts = [];
+
+  function resizeP() {
+    pCanvas.width  = pCanvas.offsetWidth  || window.innerWidth;
+    pCanvas.height = pCanvas.offsetHeight || window.innerHeight;
+  }
+  resizeP();
+  window.addEventListener('resize', resizeP, { passive: true });
+
+  function mkPart(atBottom) {
+    const W = pCanvas.width, H = pCanvas.height;
+    return {
+      x: Math.random() * W, y: atBottom ? H + 5 : Math.random() * H,
+      r: Math.random() * 1.5 + 0.35,
+      vy: Math.random() * 0.55 + 0.18, vx: (Math.random() - 0.5) * 0.22,
+      op: 0, maxOp: Math.random() * 0.52 + 0.12,
+      life: atBottom ? 0 : Math.floor(Math.random() * 200),
+      maxLife: Math.floor(Math.random() * 190 + 110),
+    };
+  }
+  for (let i = 0; i < NUM; i++) parts.push(mkPart(false));
+
+  function tickParticles() {
+    pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+    pCtx.fillStyle = '#c9a25e';
+    for (const p of parts) {
+      p.y -= p.vy; p.x += p.vx; p.life++;
+      const fade = Math.min(p.life / 45, 1) * Math.min((p.maxLife - p.life) / 45, 1);
+      p.op = p.maxOp * Math.max(0, fade);
+      if (p.life >= p.maxLife || p.y < -8) Object.assign(p, mkPart(true));
+      pCtx.globalAlpha = p.op;
+      pCtx.beginPath();
+      pCtx.arc(p.x, p.y, p.r, 0, 6.2832);
+      pCtx.fill();
+    }
+    pCtx.globalAlpha = 1;
+  }
+
+  /* ---- RAF loop ---- */
+  (function loop() {
+    if (visible) {
+      mx += (tgtX - mx) * 0.052;
+      my += (tgtY - my) * 0.052;
+      t  += 0.012;
+      renderWorld();
+      renderCards();
+      tickParticles();
+    }
+    requestAnimationFrame(loop);
+  })();
 }
 
 /* ===== NAV SCROLL ===== */
@@ -224,8 +329,10 @@ const PRODUCTS_CALC = {
   'tirante-wpc':        { name: 'Tirante WPC 30×40mm',            price: 6209,   ml: 1,     unit: 'm', perMl: true },
   // Zócalos (precio por metro lineal)
   'zocalo-7':           { name: 'Zócalo EPS 7cm + Clips',         price: 4310,   ml: 1,     unit: 'm', perMl: true },
-  'zocalo-10':          { name: 'Zócalo EPS 10cm + Clips',        price: 7862,   ml: 1,     unit: 'm', perMl: true },
+  'zocalo-10':          { name: 'Zócalo EPS 10cm + Clips',        price: 3956,   ml: 1,     unit: 'm', perMl: true },
   'zocalo-led':         { name: 'Zócalo EPS LED 10cm',            price: 6301,   ml: 1,     unit: 'm', perMl: true },
+  'zocalo-arce':        { name: 'Zócalo EPS Arce París + Clips',  price: 5506,   ml: 1,     unit: 'm', perMl: true },
+  'cuarta-cana':        { name: 'Cuarta Caña EPS Blanca',         price: 4514,   ml: 1,     unit: 'm', perMl: true },
   // Molduras (precio por metro lineal)
   'moldura-peq':        { name: 'Moldura EPS Pequeña',            price: 1594,   ml: 1,     unit: 'm', perMl: true },
   'moldura-grande':     { name: 'Moldura EPS Grande',             price: 5186,   ml: 1,     unit: 'm', perMl: true },
@@ -2295,7 +2402,7 @@ function initPhotoSim() {
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
-  initSlideshow();
+  initHeroImmersive();
   initNav();
   initReveal();
   initFilters();

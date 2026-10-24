@@ -159,40 +159,107 @@ h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
   overflow: hidden;
 }
 
-/* Slideshow */
-.hero-slides {
+/* Fondo atmosférico difuminado */
+.h3d-bg {
+  position: absolute;
+  inset: -30px;
+  background: url('Living.jpg') center/cover no-repeat;
+  filter: blur(16px) brightness(0.20) saturate(0.55);
+  transform: scale(1.06);
+  z-index: 0;
+}
+
+/* Canvas de partículas */
+.hero-particles {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
 }
-.hero-slide {
+
+/* Escena 3D */
+.h3d-scene {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 1.4s ease, transform 6s ease;
+  perspective: 1100px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
 }
-.hero-slide.active {
-  opacity: 1;
-  transform: scale(1);
+.h3d-world {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  transform: translate3d(-50%,-50%,0);
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+.h3d-card {
+  position: absolute;
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow:
+    0 50px 140px rgba(0,0,0,0.80),
+    0 0 0 1px rgba(255,255,255,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.13);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.h3d-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.h3d-gloss {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,rgba(255,255,255,0.10) 0%,transparent 55%);
+  pointer-events: none;
+  z-index: 2;
+}
+.h3d-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg,transparent 25%,rgba(255,255,255,0.14) 50%,transparent 75%);
+  background-size: 250% 100%;
+  animation: h3dShine 5.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+.h3d-card:nth-child(1) .h3d-shine { animation-delay: 0s; }
+.h3d-card:nth-child(2) .h3d-shine { animation-delay: 1.4s; }
+.h3d-card:nth-child(3) .h3d-shine { animation-delay: 2.8s; }
+.h3d-card:nth-child(4) .h3d-shine { animation-delay: 4.2s; }
+.h3d-card--far { filter: blur(1.4px) brightness(0.62); }
+@keyframes h3dShine {
+  0%,100% { background-position: -150% 0; }
+  50%     { background-position: 250% 0; }
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    105deg,
-    rgba(8,7,5,0.88) 0%,
-    rgba(8,7,5,0.55) 55%,
-    rgba(8,7,5,0.72) 100%
+    100deg,
+    rgba(8,7,5,0.94) 0%,
+    rgba(8,7,5,0.75) 40%,
+    rgba(8,7,5,0.32) 68%,
+    rgba(8,7,5,0.06) 100%
   );
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
@@ -315,36 +382,13 @@ h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
   background: var(--gold-dim);
 }
 
-/* Slide counter */
-.slide-counter {
-  position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  letter-spacing: 1px;
-}
-.slide-sep {
-  display: block;
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-}
-.slide-current { color: var(--gold); font-weight: 700; }
-
 /* Ticker */
 .hero-ticker {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 3;
+  z-index: 5;
   background: rgba(201,162,94,0.12);
   backdrop-filter: blur(6px);
   border-top: 1px solid rgba(201,162,94,0.25);
@@ -372,7 +416,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
   position: absolute;
   bottom: 56px;
   left: 40px;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -395,7 +439,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
 }
 
 @media (max-width: 768px) {
-  .slide-counter { display: none; }
+  .h3d-scene { display: none; }
   .hero-scroll { left: 16px; bottom: 70px; }
   .hero-title { font-size: clamp(2.6rem, 10vw, 4rem); }
 }
