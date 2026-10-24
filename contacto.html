@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Presupuesto Revestimientos La Plata | Estilo Revestido</title>
+  <meta name="description" content="Consultá por revestimientos en La Plata y GBA. Wall Panel, Placas PVC, Pisos Vinílicos. Presupuesto sin cargo a domicilio. Instalación profesional.">  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+</head>
+<body>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo-black.webp" alt="Estilo Revestido" class="nav-logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="galeria.html#simulaFoto">Simulador</a></li>
+      <li><a href="productos.html#calculador">Calculador</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="sim-open-btn" id="simOpenBtn">✦ Simulador</button>
+      <button class="cart-btn">
+        🛒 Carrito
+        <span class="cart-count">0</span>
+      </button>
+      <button class="nav-menu-btn" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu">
+  <button class="mobile-close">✕</button>
+  <a href="productos.html">Productos</a>
+  <a href="galeria.html">Galería</a>
+  <a href="productos.html#calculador">Calculador</a>
+  <a href="contacto.html">Contacto</a>
+</div>
+<!-- CONTACT -->
+<section class="section contact-section" id="contacto" style="padding-top:120px;">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h2>Hablemos de tu <span class="gold">proyecto</span></h2>
+        <div class="divider"></div>
+        <p>Consultanos por WhatsApp, Instagram o email. Te asesoramos sin compromiso y coordinamos una visita para tomar medidas y cotizar.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div>
+              <strong>WhatsApp</strong>
+              <a href="https://wa.me/542214374605" target="_blank">221 437-4605</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div>
+              <strong>WhatsApp alternativo</strong>
+              <a href="https://wa.me/542216313867" target="_blank">221 631-3867</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:estilorevestido@gmail.com">estilorevestido@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📸</div>
+            <div>
+              <strong>Instagram</strong>
+              <a href="https://instagram.com/estilorevestido" target="_blank">@estilorevestido</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-cta reveal" style="transition-delay:0.15s">
+        <div class="contact-cta-box">
+          <h3>¿Listo para empezar?</h3>
+          <p>Escribinos ahora y te respondemos en minutos. Agendamos una visita sin cargo para tomar medidas y armar tu presupuesto personalizado.</p>
+          <div class="contact-btns">
+            <a href="https://wa.me/542214374605?text=Hola!%20Quisiera%20consultar%20por%20revestimientos.%20%C2%BFPueden%20asesorarme%3F" target="_blank" class="btn-wa-full">
+              📲 Escribir por WhatsApp
+            </a>
+            <a href="https://instagram.com/estilorevestido" target="_blank" class="btn-ig">
+              📸 Ver en Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <img src="logo-black.webp" alt="Estilo Revestido" style="height:60px;width:auto;margin:0 auto 12px;display:block;opacity:0.7;filter:invert(1);">
+    <p style="margin-top:8px;">La Plata, Buenos Aires · © 2026 · Todos los derechos reservados</p>
+    <p style="margin-top:4px;">Precios expresados en pesos argentinos · IVA incluido · Material sin colocación</p>
+  </div>
+</footer>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay">
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h2>Tu Carrito</h2>
+      <button class="cart-close">✕</button>
+    </div>
+    <div class="cart-items">
+      <div class="cart-empty">🛒<span>Tu carrito está vacío</span></div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total material</span>
+        <strong>$0</strong>
+      </div>
+      <button class="btn-cart-wa">📲 Solicitar presupuesto</button>
+      <button class="btn-clear-cart">Vaciar carrito</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✦</span>
+  <span class="toast-msg"></span>
+</div>
+
+<!-- ===== SIMULADOR DE AMBIENTES ===== -->
+<div class="sim-overlay" id="simOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="sim-panel">
+    <button class="sim-close" id="simClose" aria-label="Cerrar">×</button>
+
+    <div class="sim-header">
+      <h2 class="sim-title">Simulador de Ambientes</h2>
+      <p class="sim-subtitle">Ingresá las medidas, elegí los materiales y mirá cómo queda tu espacio</p>
+    </div>
+
+    <!-- Dimensiones -->
+    <div class="sim-dims-bar">
+      <div class="sim-dim-field">
+        <label class="sim-dim-label">Ancho</label>
+        <input class="sim-dim-input" id="simAncho" type="number" min="1" max="20" step="0.5" value="4">
+        <span class="sim-dim-unit">m</span>
+      </div>
+      <div class="sim-dim-sep">×</div>
+      <div class="sim-dim-field">
+        <label class="sim-dim-label">Largo</label>
+        <input class="sim-dim-input" id="simLargo" type="number" min="1" max="20" step="0.5" value="5">
+        <span class="sim-dim-unit">m</span>
+      </div>
+      <div class="sim-dim-sep">×</div>
+      <div class="sim-dim-field">
+        <label class="sim-dim-label">Alto</label>
+        <input class="sim-dim-input" id="simAlto" type="number" min="1.8" max="6" step="0.1" value="2.6">
+        <span class="sim-dim-unit">m</span>
+      </div>
+    </div>
+
+    <!-- Combinaciones recomendadas -->
+    <div class="sim-combos-bar">
+      <span class="sim-combos-label">Combinaciones:</span>
+      <div class="sim-combos-list" id="simCombosList"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="sim-content">
+
+      <!-- Vista perspectiva -->
+      <div class="sim-scene-wrap">
+        <canvas id="simCanvas" width="700" height="420"></canvas>
+        <div class="sim-scene-hint">Vista en perspectiva · cambiá medidas y materiales para actualizar</div>
+      </div>
+
+      <!-- Selectores + presupuesto -->
+      <div class="sim-sidebar">
+
+        <div class="sim-selectors">
+          <div class="sim-sel-row">
+            <div class="sim-sel-thumb" id="thumbParedes"></div>
+            <div class="sim-sel-info">
+              <label class="sim-sel-label">Paredes</label>
+              <select class="sim-select" id="selParedes"></select>
+            </div>
+          </div>
+          <div class="sim-sel-row">
+            <div class="sim-sel-thumb" id="thumbTecho"></div>
+            <div class="sim-sel-info">
+              <label class="sim-sel-label">Techo</label>
+              <select class="sim-select" id="selTecho"></select>
+            </div>
+          </div>
+          <div class="sim-sel-row">
+            <div class="sim-sel-thumb" id="thumbPiso"></div>
+            <div class="sim-sel-info">
+              <label class="sim-sel-label">Piso</label>
+              <select class="sim-select" id="selPiso"></select>
+            </div>
+          </div>
+          <div class="sim-sel-row">
+            <div class="sim-sel-thumb" id="thumbZocalo"></div>
+            <div class="sim-sel-info">
+              <label class="sim-sel-label">Zócalo</label>
+              <select class="sim-select" id="selZocalo"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-budget" id="simBudget">
+          <p class="sim-budget-empty">Seleccioná productos para ver el presupuesto</p>
+        </div>
+
+        <div class="sim-actions">
+          <button class="sim-btn-wa" id="simWaBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.959 9.959 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+            WhatsApp
+          </button>
+          <button class="sim-btn-cart" id="simCartBtn">+ Carrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
