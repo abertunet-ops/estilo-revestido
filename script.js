@@ -120,6 +120,272 @@ function initHeroImmersive() {
   })();
 }
 
+/* ===== SCROLL REEL CINEMÁTICO ===== */
+function initScrollReel() {
+  const section = document.getElementById('scrollReel');
+  const canvas  = document.getElementById('reelCanvas');
+  if (!section || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  const FRAMES = [
+    { src: 'Living.jpg',                            px: -0.015, py:  0.000 },
+    { src: 'CB Group/wall-panel-ambiente1.jpg',     px:  0.020, py: -0.010 },
+    { src: 'CB Group/placa-piedra-ambiente1.jpg',   px: -0.012, py:  0.008 },
+    { src: 'Habitacion .jpg',                       px:  0.015, py:  0.000 },
+    { src: 'CB Group/piedra-flexible-ambiente.jpg', px: -0.018, py: -0.005 },
+  ];
+
+  const imgs = FRAMES.map(f => {
+    const img = new Image();
+    img.src = f.src;
+    img.onload = schedule;
+    return img;
+  });
+
+  let W = 0, H = 0, vigGrad = null;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth  || window.innerWidth;
+    H = canvas.height = canvas.offsetHeight || window.innerHeight;
+    makeVig();
+    schedule();
+  }
+
+  function makeVig() {
+    vigGrad = ctx.createRadialGradient(W / 2, H / 2, H * 0.22, W / 2, H / 2, H * 0.88);
+    vigGrad.addColorStop(0, 'transparent');
+    vigGrad.addColorStop(1, 'rgba(0,0,0,0.62)');
+  }
+
+  function ease(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
+  function coverDraw(img, alpha, scale, offX, offY) {
+    if (!img || !img.complete || !img.naturalWidth) return;
+    const iAR = img.naturalWidth / img.naturalHeight;
+    const cAR = W / H;
+    let dw, dh;
+    if (iAR > cAR) { dh = H * scale; dw = dh * iAR; }
+    else            { dw = W * scale; dh = dw / iAR; }
+    const x = (W - dw) * 0.5 + offX * (dw - W) * 0.5;
+    const y = (H - dh) * 0.5 + offY * (dh - H) * 0.5;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(img, x, y, dw, dh);
+    ctx.restore();
+  }
+
+  function getProgress() {
+    const top      = section.getBoundingClientRect().top + window.scrollY;
+    const scrollable = section.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    return Math.max(0, Math.min(1, (window.scrollY - top) / scrollable));
+  }
+
+  const labelEls = [...section.querySelectorAll('.reel-label')];
+  const curEl    = section.querySelector('.reel-cur');
+  const barEl    = section.querySelector('.reel-bar');
+  const N        = FRAMES.length;
+  const LB_H     = () => Math.floor(H * 0.056); // letterbox height
+
+  function render() {
+    if (!W || !H) return;
+    const p  = getProgress();
+    const fp = p * N;
+    const fi = Math.min(Math.floor(fp), N - 1);
+    const lp = fp - fi;                // 0–1 within current frame
+    const f  = FRAMES[fi];
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Current frame: slow zoom-out + pan
+    coverDraw(imgs[fi], 1, 1.12 - lp * 0.10, f.px * (1 - lp), f.py * (1 - lp));
+
+    // Next frame: fade+zoom in during last 40% of current frame
+    const BS = 0.60;
+    if (lp > BS && fi + 1 < N) {
+      const t2  = ease((lp - BS) / (1 - BS));
+      const f2  = FRAMES[fi + 1];
+      coverDraw(imgs[fi + 1], t2, 1.16 - t2 * 0.10, f2.px * (1 - t2) * 0.5, f2.py * (1 - t2) * 0.5);
+    }
+
+    // Vignette
+    if (vigGrad) { ctx.fillStyle = vigGrad; ctx.fillRect(0, 0, W, H); }
+
+    // Letterbox bars
+    const lb = LB_H();
+    ctx.fillStyle = '#080705';
+    ctx.fillRect(0, 0, W, lb);
+    ctx.fillRect(0, H - lb, W, lb);
+
+    // Update UI elements
+    const blendDominant = lp > BS && fi + 1 < N && ease((lp - BS) / (1 - BS)) > 0.5;
+    const active = blendDominant ? fi + 1 : fi;
+    labelEls.forEach((el, i) => el.classList.toggle('reel-label--active', i === active));
+    if (curEl) curEl.textContent = String(active + 1).padStart(2, '0');
+    if (barEl) barEl.style.transform = `scaleX(${p})`;
+  }
+
+  let queued = false;
+  function schedule() {
+    if (!queued) {
+      queued = true;
+      requestAnimationFrame(() => { queued = false; render(); });
+    }
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', () => { resize(); }, { passive: true });
+
+  // También escuchar a Lenis si está activo (posición suavizada)
+  setTimeout(() => {
+    if (lenisInstance) lenisInstance.on('scroll', schedule);
+  }, 100);
+
+  resize();
+}
+
+/* ===== PROCESO SUITE PREMIUM ===== */
+function initProcessReel() {
+  const section = document.getElementById('processReel');
+  const canvas  = document.getElementById('processCanvas');
+  if (!section || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+
+  // 6 pasos del proceso con imágenes de los materiales/ambientes
+  const STEPS = [
+    { src: 'Wall panel interior/dark panel.jpg',          px: -0.010, py:  0.000 },
+    { src: 'Wall panel interior/Wallnut Fine.jpg',        px:  0.015, py: -0.008 },
+    { src: 'CB Group/wall-panel-ambiente1.jpg',           px: -0.012, py:  0.005 },
+    { src: 'CB Group/piedra-flexible-ambiente.jpg',       px:  0.010, py: -0.005 },
+    { src: 'Habitacion .jpg',                             px: -0.015, py:  0.000 },
+    { src: 'Rincon.jpg',                                  px:  0.008, py:  0.005 },
+  ];
+
+  const imgs = STEPS.map(s => {
+    const img = new Image();
+    img.src = s.src;
+    img.onload = schedule;
+    return img;
+  });
+
+  let W = 0, H = 0, vigGrad = null;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth  || window.innerWidth;
+    H = canvas.height = canvas.offsetHeight || window.innerHeight;
+    makeVig();
+    schedule();
+  }
+
+  function makeVig() {
+    // Vignette más marcada que el reel general (look más íntimo)
+    vigGrad = ctx.createRadialGradient(W / 2, H / 2, H * 0.15, W / 2, H / 2, H * 0.82);
+    vigGrad.addColorStop(0, 'transparent');
+    vigGrad.addColorStop(1, 'rgba(0,0,0,0.70)');
+  }
+
+  function ease(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
+  function coverDraw(img, alpha, scale, offX, offY, warmth) {
+    if (!img || !img.complete || !img.naturalWidth) return;
+    const iAR = img.naturalWidth / img.naturalHeight;
+    const cAR = W / H;
+    let dw, dh;
+    if (iAR > cAR) { dh = H * scale; dw = dh * iAR; }
+    else            { dw = W * scale; dh = dw / iAR; }
+    const x = (W - dw) * 0.5 + offX * (dw - W) * 0.5;
+    const y = (H - dh) * 0.5 + offY * (dh - H) * 0.5;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(img, x, y, dw, dh);
+    // Tono cálido sutil en las primeras imágenes (materiales), frío en el resultado final
+    if (warmth > 0) {
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.fillStyle = `rgba(255,240,220,${warmth * 0.08})`;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    ctx.restore();
+  }
+
+  function getProgress() {
+    const top      = section.getBoundingClientRect().top + window.scrollY;
+    const scrollable = section.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    return Math.max(0, Math.min(1, (window.scrollY - top) / scrollable));
+  }
+
+  const labelEls   = [...section.querySelectorAll('.process-label')];
+  const descEls    = [...section.querySelectorAll('.process-desc')];
+  const stepNumEl  = section.querySelector('.process-step-num');
+  const barEl      = section.querySelector('.process-bar');
+  const ctaEl      = document.getElementById('processCtaBtn');
+  const N          = STEPS.length;
+
+  function render() {
+    if (!W || !H) return;
+    const p  = getProgress();
+    const fp = p * N;
+    const fi = Math.min(Math.floor(fp), N - 1);
+    const lp = fp - fi;
+    const s  = STEPS[fi];
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Calidez decrece a medida que avanzamos (material → ambientado)
+    const warmth = Math.max(0, 1 - fi / (N - 1));
+
+    // Frame actual: zoom suave + Ken Burns pan
+    coverDraw(imgs[fi], 1, 1.10 - lp * 0.08, s.px * (1 - lp), s.py * (1 - lp), warmth);
+
+    // Siguiente frame: fade in en el último 38% de lp
+    const BS = 0.62;
+    if (lp > BS && fi + 1 < N) {
+      const t2 = ease((lp - BS) / (1 - BS));
+      const s2 = STEPS[fi + 1];
+      const w2 = Math.max(0, 1 - (fi + 1) / (N - 1));
+      coverDraw(imgs[fi + 1], t2, 1.14 - t2 * 0.08, s2.px * (1 - t2) * 0.5, s2.py * (1 - t2) * 0.5, w2 * t2);
+    }
+
+    // Vignette
+    if (vigGrad) { ctx.fillStyle = vigGrad; ctx.fillRect(0, 0, W, H); }
+
+    // Letterbox
+    const lb = Math.floor(H * 0.056);
+    ctx.fillStyle = '#080705';
+    ctx.fillRect(0, 0, W, lb);
+    ctx.fillRect(0, H - lb, W, lb);
+
+    // UI
+    const blendDom = lp > BS && fi + 1 < N && ease((lp - BS) / (1 - BS)) > 0.5;
+    const active   = blendDom ? fi + 1 : fi;
+
+    labelEls.forEach((el, i) => el.classList.toggle('process-label--active', i === active));
+    descEls.forEach( (el, i) => el.classList.toggle('process-desc--active',  i === active));
+
+    if (stepNumEl) stepNumEl.textContent = String(active + 1).padStart(2, '0');
+    if (barEl)     barEl.style.transform = `scaleX(${p})`;
+
+    // Mostrar CTA solo en el último paso
+    if (ctaEl) ctaEl.classList.toggle('process-cta--visible', active >= N - 1);
+  }
+
+  let queued = false;
+  function schedule() {
+    if (!queued) {
+      queued = true;
+      requestAnimationFrame(() => { queued = false; render(); });
+    }
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', () => { resize(); }, { passive: true });
+  setTimeout(() => { if (lenisInstance) lenisInstance.on('scroll', schedule); }, 100);
+  resize();
+}
+
 /* ===== NAV SCROLL ===== */
 function initNav() {
   const nav = document.querySelector('.nav');
@@ -2403,6 +2669,8 @@ function initPhotoSim() {
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initHeroImmersive();
+  initScrollReel();
+  initProcessReel();
   initNav();
   initReveal();
   initFilters();
