@@ -47,9 +47,10 @@ function initFrameScrub() {
     const iAR = img.naturalWidth / img.naturalHeight;
     const cAR = W / H;
     let dw, dh;
-    if (iAR > cAR) { dh = H; dw = dh * iAR; }
-    else            { dw = W; dh = dw / iAR; }
-    ctx.clearRect(0, 0, W, H);
+    if (iAR > cAR) { dw = W; dh = dw / iAR; }
+    else            { dh = H; dw = dh * iAR; }
+    ctx.fillStyle = '#060504';
+    ctx.fillRect(0, 0, W, H);
     ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
   }
 
