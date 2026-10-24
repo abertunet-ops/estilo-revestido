@@ -15,40 +15,6 @@ function initSlideshow() {
   setInterval(next, 5000);
 }
 
-/* ===== BEFORE / AFTER ===== */
-function initBeforeAfter() {
-  const section  = document.getElementById('casoReal');
-  const wrap     = section && section.querySelector('.ba-canvas-wrap');
-  const afterImg = section && section.querySelector('.ba-after');
-  const divider  = section && section.querySelector('.ba-divider');
-  if (!section || !wrap || !afterImg || !divider) return;
-
-  function getProgress() {
-    const top = section.getBoundingClientRect().top + window.scrollY;
-    const scrollable = section.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    return Math.max(0, Math.min(1, (window.scrollY - top) / scrollable));
-  }
-
-  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-
-  function render() {
-    const p  = ease(getProgress());          // 0 → 1
-    const pct = p * 100;
-    afterImg.style.clipPath  = `inset(0 ${100 - pct}% 0 0)`;
-    divider.style.left       = `${pct}%`;
-  }
-
-  let queued = false;
-  function schedule() {
-    if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; render(); }); }
-  }
-  window.__baSchedule = schedule;
-
-  window.addEventListener('resize', schedule, { passive: true });
-  render();
-}
-
 /* ===== NAV SCROLL ===== */
 function initNav() {
   const nav = document.querySelector('.nav');
@@ -364,9 +330,6 @@ function initLenis() {
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
-  lenisInstance.on('scroll', () => {
-    window.__baSchedule && window.__baSchedule();
-  });
 }
 
 /* ===== SHOWCASE PARALLAX ===== */
@@ -2333,7 +2296,6 @@ function initPhotoSim() {
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initSlideshow();
-  initBeforeAfter();
   initNav();
   initReveal();
   initFilters();
