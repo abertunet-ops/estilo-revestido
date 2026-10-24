@@ -50,34 +50,16 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- Fondo atmosférico difuminado -->
-  <div class="h3d-bg"></div>
-  <!-- Partículas doradas -->
-  <canvas id="heroParticles" class="hero-particles"></canvas>
-  <!-- Escena 3D con paneles flotantes -->
-  <div class="h3d-scene" id="h3dScene" aria-hidden="true">
-    <div class="h3d-world" id="h3dWorld">
-      <div class="h3d-card" data-card="0">
-        <img src="CB Group/wall-panel-ambiente1.jpg" alt="" draggable="false">
-        <div class="h3d-gloss"></div><div class="h3d-shine"></div>
-      </div>
-      <div class="h3d-card" data-card="1">
-        <img src="Wall panel interior/dark panel.jpg" alt="" draggable="false">
-        <div class="h3d-gloss"></div><div class="h3d-shine"></div>
-      </div>
-      <div class="h3d-card" data-card="2">
-        <img src="CB Group/placa-piedra-ambiente1.jpg" alt="" draggable="false">
-        <div class="h3d-gloss"></div><div class="h3d-shine"></div>
-      </div>
-      <div class="h3d-card" data-card="3">
-        <img src="Pisos Vinilicos/Roble classic.jpg" alt="" draggable="false">
-        <div class="h3d-gloss"></div><div class="h3d-shine"></div>
-      </div>
-      <div class="h3d-card h3d-card--far" data-card="4">
-        <img src="Habitacion .jpg" alt="" draggable="false">
-        <div class="h3d-gloss"></div>
-      </div>
-    </div>
+  <!-- Slideshow de fotos -->
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('Living.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('Baño.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('Habitacion .jpg')"></div>
+    <div class="hero-slide" style="background-image:url('exterior.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('Rincon.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('CB Group/wall-panel-ambiente1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('CB Group/placa-piedra-ambiente1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('CB Group/piedra-flexible-ambiente.jpg')"></div>
   </div>
   <div class="hero-overlay"></div>
 
@@ -103,6 +85,13 @@
       <a href="#productos" class="btn-primary">Ver catálogo ↓</a>
       <a href="https://wa.me/542214374605" target="_blank" class="btn-secondary">📲 Consultar ahora</a>
     </div>
+  </div>
+
+  <!-- Slide counter -->
+  <div class="slide-counter">
+    <span class="slide-current">01</span>
+    <span class="slide-sep"></span>
+    <span class="slide-total">08</span>
   </div>
 
   <!-- Ticker -->
@@ -170,75 +159,6 @@
     </div>
   </div>
 </div>
-
-<!-- SCROLL REEL CINEMÁTICO -->
-<section class="scroll-reel" id="scrollReel">
-  <div class="reel-sticky">
-    <canvas id="reelCanvas" class="reel-canvas"></canvas>
-    <div class="reel-ui">
-      <div class="reel-top">
-        <span class="reel-eyebrow">— Nuestros ambientes</span>
-      </div>
-      <div class="reel-bottom">
-        <div class="reel-title-wrap">
-          <div class="reel-label" data-frame="0">Ambiente Living</div>
-          <div class="reel-label" data-frame="1">Wall Panel WPC</div>
-          <div class="reel-label" data-frame="2">Placa Simil Piedra</div>
-          <div class="reel-label" data-frame="3">Suite Premium</div>
-          <div class="reel-label" data-frame="4">Piedra Flexible</div>
-        </div>
-        <div class="reel-meta">
-          <div class="reel-counter">
-            <span class="reel-cur">01</span><span class="reel-sep"> / </span><span class="reel-tot">05</span>
-          </div>
-          <div class="reel-prog-wrap">
-            <div class="reel-bar"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESO SUITE PREMIUM -->
-<section class="process-reel" id="processReel">
-  <div class="reel-sticky">
-    <canvas id="processCanvas" class="reel-canvas"></canvas>
-    <div class="process-ui">
-      <div class="process-badge">
-        <span class="process-step-num">01</span>
-        <span class="process-badge-sep">/</span>
-        <span class="process-step-tot">06</span>
-        <span class="process-badge-label">pasos</span>
-      </div>
-      <div class="process-body">
-        <div class="process-eyebrow">— Suite Premium · El proceso</div>
-        <div class="process-title-wrap">
-          <div class="process-label" data-step="0">Selección del material</div>
-          <div class="process-label" data-step="1">Corte y preparación</div>
-          <div class="process-label" data-step="2">Instalación de paneles</div>
-          <div class="process-label" data-step="3">Detalles y terminaciones</div>
-          <div class="process-label" data-step="4">Suite terminada</div>
-          <div class="process-label" data-step="5">El resultado final</div>
-        </div>
-        <div class="process-desc-wrap">
-          <div class="process-desc" data-step="0">Elegimos los mejores revestimientos PVC premium para cada ambiente</div>
-          <div class="process-desc" data-step="1">Medición exacta y preparación de paneles a medida para cada pared</div>
-          <div class="process-desc" data-step="2">Instalación profesional por nuestro equipo certificado Kolertech</div>
-          <div class="process-desc" data-step="3">Cada terminación cuidada al milímetro: esquinas, zócalos y molduras</div>
-          <div class="process-desc" data-step="4">El ambiente cobra vida con una estética única y diferenciada</div>
-          <div class="process-desc" data-step="5">Tu espacio, completamente transformado. Calidad que se ve y se siente</div>
-        </div>
-      </div>
-      <div class="process-footer">
-        <div class="process-prog-wrap">
-          <div class="process-bar"></div>
-        </div>
-        <a href="https://wa.me/542214374605" class="process-cta" id="processCtaBtn" target="_blank">Quiero mi suite ↗</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PRODUCTOS DESTACADOS -->
 <section class="showcase-section" id="destacados">
@@ -1432,99 +1352,6 @@
         </div>
       </div>
 
-      <!-- ZÓCALO EPS 10CM + CLIPS -->
-      <div class="product-card reveal" data-category="zocalos">
-        <div class="card-image-wrap">
-          <img src="Zocalos eps/zocalo-10cm-clips.jpg" alt="Zócalo EPS Blanco 10cm + Clips" loading="lazy">
-        </div>
-        <div class="card-body">
-          <p class="card-category">Zócalo EPS · Kolertech</p>
-          <h3 class="card-title">Zócalo EPS 10cm + Clips</h3>
-          <p class="card-desc">Perfil alto de 10cm para mayor presencia visual. Sistema de clips incluidos. Liviano, impermeable, sin clavos ni obra. Terminación premium para pisos flotantes y vinílicos.</p>
-          <div class="card-specs">
-            <span class="card-spec">3 metros lineales / tira</span>
-            <span class="card-spec">Clips incluidos</span>
-          </div>
-          <div class="card-footer">
-            <div>
-              <span class="card-price">$11.867</span>
-              <span class="card-price-unit">/ tira</span>
-            </div>
-            <button class="card-add-btn">+ Agregar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ZÓCALO EPS LED 10CM -->
-      <div class="product-card reveal" data-category="zocalos">
-        <div class="card-image-wrap">
-          <img src="Zocalos eps/zocalo-led-10cm.jpg" alt="Zócalo EPS LED Blanco 10cm" loading="lazy">
-          <span class="card-badge">LED</span>
-        </div>
-        <div class="card-body">
-          <p class="card-category">Zócalo EPS · Kolertech</p>
-          <h3 class="card-title">Zócalo EPS LED 10cm</h3>
-          <p class="card-desc">Zócalo con ranura de 8mm para tira LED decorativa. Efecto de luz indirecta rasante al piso. Instalación con adhesivo, sin obra. No incluye tira LED.</p>
-          <div class="card-specs">
-            <span class="card-spec">Ranura LED 8mm</span>
-            <span class="card-spec">Pegado con adhesivo</span>
-          </div>
-          <div class="card-footer">
-            <div>
-              <span class="card-price">$18.904</span>
-              <span class="card-price-unit">/ tira</span>
-            </div>
-            <button class="card-add-btn">+ Agregar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ZÓCALO EPS ARCE PARÍS + CLIPS -->
-      <div class="product-card reveal" data-category="zocalos">
-        <div class="card-image-wrap">
-          <img src="Zocalos eps/zocalo-arce-paris.jpg" alt="Zócalo EPS Arce París" loading="lazy">
-        </div>
-        <div class="card-body">
-          <p class="card-category">Zócalo EPS · Kolertech</p>
-          <h3 class="card-title">Zócalo EPS Arce París</h3>
-          <p class="card-desc">Diseño símil madera arce con pasacable integrado. Ideal para combinar con pisos vinílicos madera. Clips incluidos, sin clavos. Liviano e impermeable.</p>
-          <div class="card-specs">
-            <span class="card-spec">2.25 metros / tira</span>
-            <span class="card-spec">Pasacable · Clips</span>
-          </div>
-          <div class="card-footer">
-            <div>
-              <span class="card-price">$12.388</span>
-              <span class="card-price-unit">/ tira</span>
-            </div>
-            <button class="card-add-btn">+ Agregar</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- CUARTA CAÑA EPS BLANCA -->
-      <div class="product-card reveal" data-category="zocalos">
-        <div class="card-image-wrap">
-          <img src="Zocalos eps/cuarta-cana-eps.jpg" alt="Cuarta Caña EPS Blanca" loading="lazy">
-        </div>
-        <div class="card-body">
-          <p class="card-category">Zócalo EPS · Kolertech</p>
-          <h3 class="card-title">Cuarta Caña EPS Blanca</h3>
-          <p class="card-desc">Perfil redondeado para cubrir la unión pared-piso. Ideal para porcelanatos, flotantes y vinílicos. Blanco impecable, resistente a la humedad, sin mantenimiento.</p>
-          <div class="card-specs">
-            <span class="card-spec">2.25 metros / tira</span>
-            <span class="card-spec">Para pisos flotantes</span>
-          </div>
-          <div class="card-footer">
-            <div>
-              <span class="card-price">$10.157</span>
-              <span class="card-price-unit">/ tira</span>
-            </div>
-            <button class="card-add-btn">+ Agregar</button>
-          </div>
-        </div>
-      </div>
-
       <!-- ══════════════════════════════════════
            MOLDURAS
       ══════════════════════════════════════ -->
@@ -1750,10 +1577,6 @@
               </optgroup>
               <optgroup label="── Zócalos">
                 <option value="zocalo-7">Zócalo EPS 7cm + Clips ($12.929 / tira 3m)</option>
-                <option value="zocalo-10">Zócalo EPS 10cm + Clips ($11.867 / tira 3m)</option>
-                <option value="zocalo-led">Zócalo EPS LED 10cm ($18.904 / tira)</option>
-                <option value="zocalo-arce">Zócalo EPS Arce París ($12.388 / tira 2.25m)</option>
-                <option value="cuarta-cana">Cuarta Caña EPS Blanca ($10.157 / tira 2.25m)</option>
               </optgroup>
               <optgroup label="── Molduras Cielorraso">
                 <option value="moldura-peq">Moldura Cielorraso EPS ($1.594 / m lineal)</option>
