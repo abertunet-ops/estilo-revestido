@@ -1255,8 +1255,9 @@ const SIM_CATALOG = {
   'pm-mnegro':  { label: 'Mármol Negro',           img: 'Placas de pvc/marmol negro.jpg',       price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
   'pm-carrara': { label: 'Mármol Carrara',         img: 'Placas de pvc/carrara.jpg',            price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
   'pm-gray':    { label: 'Placa Gris',             img: 'Placas de pvc/gray.jpg',               price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-white':   { label: 'Placa All White',        img: 'Placas de pvc/all white.jpg',          price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-ablack':  { label: 'Placa All Black',        img: 'Placas de pvc/All Black.jpg',          price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
+  'pm-white':      { label: 'Placa All White',     img: 'Placas de pvc/all white.jpg',          price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
+  'pm-ablack':     { label: 'Placa All Black',     img: 'Placas de pvc/All Black.jpg',          price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
+  'pm-travertino': { label: 'Travertino',          img: 'Placas de pvc/jura beige.jpg',         price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
   // --- Placas 3D ---
   'p3-ondas':   { label: '3D Ondas',               img: 'Placas 3D/ondas.jpg',                  price:  6895, m2: 0.25, surfaces: ['pared'] },
   'p3-rombo':   { label: '3D Rombo',               img: 'Placas 3D/rombo.jpg',                  price:  6895, m2: 0.25, surfaces: ['pared'] },
@@ -1708,7 +1709,8 @@ function initPhotoSim() {
     'we-peach':   { skip:true },  'we-maple':   { skip:true },
     'pm-mblanco': { crop:false }, 'pm-mnegro':  { crop:false },
     'pm-carrara': { skip:true },  'pm-gray':    { crop:false },
-    'pm-white':   { crop:false }, 'pm-ablack':  { crop:false },
+    'pm-white':      { crop:false }, 'pm-ablack':     { crop:false },
+    'pm-travertino': { crop:false },
     'p3-ondas':   { crop:false }, 'p3-rombo':   { crop:false },
     'p3-lineas':  { crop:false },
     'pv-ashdark': { crop:true },  'pv-ashgray': { crop:true },
@@ -2121,7 +2123,10 @@ function initPhotoSim() {
     poly.forEach((p, i) => i ? tc2.lineTo(p.x, p.y) : tc2.moveTo(p.x, p.y));
     tc2.closePath();
     tc2.clip();
-    tc2.globalAlpha = 0.60;
+    // Fade luminosity blend to 0 as opacity reaches 100% — at full intensity show pure texture color.
+    // Below 80% stays at 0.60 (existing look); above 80% ramps down to 0 at 100%.
+    const lumAlpha = Math.min(0.60, Math.max(0, 0.60 * (1 - alpha) / 0.20));
+    tc2.globalAlpha = lumAlpha;
     tc2.globalCompositeOperation = 'luminosity';
     tc2.drawImage(photoImg, 0, 0, tmp.width, tmp.height);
     tc2.restore();
