@@ -2345,9 +2345,6 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  max-height: 380px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   padding-right: 2px;
 }
 .sf-prod-thumb {
@@ -2417,7 +2414,7 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
 /* Responsive */
 @media (max-width: 860px) {
   .sf-main { grid-template-columns: 1fr; }
-  .sf-prod-grid { grid-template-columns: repeat(3, 1fr); max-height: 220px; }
+  .sf-prod-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 480px) {
   .sf-prod-grid { grid-template-columns: repeat(2, 1fr); }
