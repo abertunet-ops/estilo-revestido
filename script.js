@@ -206,41 +206,29 @@ function initCart() {
 /* ===== CALCULATOR ===== */
 const PRODUCTS_CALC = {
   // Wall Panel Interior
-  'wall-interior':      { name: 'Wall Panel PVC Interior',        price: 22699,  m2: 0.36,  unit: 'tira' },
-  'wall-wpc-acanalado': { name: 'Wall Panel WPC Acanalado',       price: 98432,  m2: 1,     unit: 'm²' },
-  'siding-wpc':         { name: 'Siding Panel WPC',               price: 92828,  m2: 1,     unit: 'm²' },
+  'wall-interior':      { name: 'Wall Panel PVC Interior',        price: 18122,  m2: 0.36,  unit: 'tira' },
+  'wall-wpc-acanalado': { name: 'Wall Panel WPC Acanalado',       price: 73577,  m2: 1,     unit: 'm²' },
+  'siding-wpc':         { name: 'Siding Panel WPC',               price: 73577,  m2: 1,     unit: 'm²' },
   // Wall Panel Exterior
-  'wall-exterior':      { name: 'Wall Panel Exterior PVC',        price: 66767,  m2: 0.36,  unit: 'unidad' },
+  'wall-exterior':      { name: 'Wall Panel Exterior WPC',        price: 48119,  m2: 0.654, unit: 'tira' },
   // Placas PVC
-  'placa-marmol':       { name: 'Placa PVC Simil Mármol',         price: 81238,  m2: 3.42,  unit: 'placa' },
+  'placa-marmol':       { name: 'Placa PVC Simil Mármol',         price: 66759,  m2: 3.42,  unit: 'placa' },
   'placa-piedra':       { name: 'Placa PVC Simil Piedra',         price: 101908, m2: 3.42,  unit: 'placa' },
-  'piedra-flexible':    { name: 'Piedra Natural Flexible',         price: 57030,  m2: 0.72,  unit: 'placa' },
-  'autoadhesivo':       { name: 'Placa Autoadhesiva PVC',         price: 16507,  m2: 1,     unit: 'm²' },
   // Placas 3D
   'placa-3d':           { name: 'Placa 3D PVC',                   price: 6895,   m2: 0.25,  unit: 'unidad' },
-  // Pisos SPC
-  'piso-vinilico':      { name: 'Piso Vinílico SPC Click',        price: 36381,  m2: 1,     unit: 'm²' },
-  'piso-porcelanato':   { name: 'Piso SPC Simil Porcelanato',     price: 36375,  m2: 1,     unit: 'm²' },
-  'piso-wpc':           { name: 'Piso Vinílico WPC Premium',      price: 51020,  m2: 1,     unit: 'm²' },
-  'piso-pegar':         { name: 'Piso Vinílico para Pegar',       price: 25953,  m2: 1,     unit: 'm²' },
-  // Pisos flotantes
-  'piso-flotante':      { name: 'Piso Flotante Laminado',         price: 29020,  m2: 1,     unit: 'm²' },
-  'piso-brilloso':      { name: 'Piso Flotante Alto Brillo',      price: 37383,  m2: 1,     unit: 'm²' },
-  'flooran':            { name: 'Flooran Art Piso Flotante',      price: 25341,  m2: 1,     unit: 'm²' },
-  // Deck WPC (precio por metro lineal)
-  'tirante-acanalado':  { name: 'Tirante WPC Acanalado',           price: 168342, ml: 1,     unit: 'm', perMl: true },
-  'tirante-elm':        { name: 'Tirante WPC ELM Macizo',          price: 174756, ml: 1,     unit: 'm', perMl: true },
-  'tirante-wpc':        { name: 'Tirante WPC 30×40mm',            price: 103849, ml: 1,     unit: 'm', perMl: true },
+  // Pisos SPC (precio por m²)
+  'piso-vinilico':      { name: 'Piso Vinílico SPC Click',        price: 32733,  m2: 1,     unit: 'm²' },
+  // Perfiles WPC (precio por metro lineal)
+  'tirante-acanalado':  { name: 'Tirante WPC 90×40mm',            price: 16258,  ml: 1,     unit: 'm', perMl: true },
+  'tirante-elm':        { name: 'Tirante WPC ELM Macizo',         price: 16258,  ml: 1,     unit: 'm', perMl: true },
+  'tirante-wpc':        { name: 'Tirante WPC 30×40mm',            price: 6209,   ml: 1,     unit: 'm', perMl: true },
   // Zócalos (precio por metro lineal)
-  'zocalo-7':           { name: 'Zócalo EPS 7cm + Clips',         price: 6005,   ml: 1,     unit: 'm', perMl: true },
-  'zocalo-10':          { name: 'Zócalo EPS 10cm + Clips',        price: 9968,   ml: 1,     unit: 'm', perMl: true },
-  'zocalo-led':         { name: 'Zócalo EPS LED 10cm',            price: 18904,  ml: 1,     unit: 'm', perMl: true },
+  'zocalo-7':           { name: 'Zócalo EPS 7cm + Clips',         price: 4310,   ml: 1,     unit: 'm', perMl: true },
+  'zocalo-10':          { name: 'Zócalo EPS 10cm + Clips',        price: 7862,   ml: 1,     unit: 'm', perMl: true },
+  'zocalo-led':         { name: 'Zócalo EPS LED 10cm',            price: 6301,   ml: 1,     unit: 'm', perMl: true },
   // Molduras (precio por metro lineal)
-  'moldura-peq':        { name: 'Moldura EPS Pequeña',            price: 1207,   ml: 1,     unit: 'm', perMl: true },
+  'moldura-peq':        { name: 'Moldura EPS Pequeña',            price: 1594,   ml: 1,     unit: 'm', perMl: true },
   'moldura-grande':     { name: 'Moldura EPS Grande',             price: 5186,   ml: 1,     unit: 'm', perMl: true },
-  // Césped
-  'cesped-premium':     { name: 'Césped Sintético Premium',       price: 28526,  m2: 1,     unit: 'm²' },
-  'cesped-luxe':        { name: 'Césped Sintético Luxe',          price: 36490,  m2: 1,     unit: 'm²' },
 };
 
 const COLOCACION_M2 = { pared: 8000, piso: 7500, cielorraso: 9500 };
@@ -1287,6 +1275,7 @@ const SIM_CATALOG = {
   'z7-blanco':  { label: 'Zócalo EPS 7cm Blanco',  img: 'Zocalos eps/Zocalo Eps Blanco 7 cm + clip.jpg', price: 6005,  ml: 1, perMl: true, surfaces: ['zocalo'] },
   'z10-blanco': { label: 'Zócalo EPS 10cm Blanco', img: 'Zocalos eps/Zocalo Eps Blanco 7 cm + clip.jpg', price: 9968,  ml: 1, perMl: true, surfaces: ['zocalo'] },
 };
+window.SIM_CATALOG = SIM_CATALOG;
 
 const SIM_COMBOS = [
   { name: 'Moderno Oscuro',   pared: 'wi-dark',    techo: 'wi-black',    piso: 'pv-ashdark', zocalo: 'z7-blanco'  },
