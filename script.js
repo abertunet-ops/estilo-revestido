@@ -1275,7 +1275,6 @@ const SIM_CATALOG = {
   'z7-blanco':  { label: 'Zócalo EPS 7cm Blanco',  img: 'Zocalos eps/Zocalo Eps Blanco 7 cm + clip.jpg', price: 6005,  ml: 1, perMl: true, surfaces: ['zocalo'] },
   'z10-blanco': { label: 'Zócalo EPS 10cm Blanco', img: 'Zocalos eps/Zocalo Eps Blanco 7 cm + clip.jpg', price: 9968,  ml: 1, perMl: true, surfaces: ['zocalo'] },
 };
-window.SIM_CATALOG = SIM_CATALOG;
 
 const SIM_COMBOS = [
   { name: 'Moderno Oscuro',   pared: 'wi-dark',    techo: 'wi-black',    piso: 'pv-ashdark', zocalo: 'z7-blanco'  },
