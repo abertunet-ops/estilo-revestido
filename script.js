@@ -15,6 +15,79 @@ function initSlideshow() {
   setInterval(next, 5000);
 }
 
+/* ===== FRAME SCROLL SCRUB ===== */
+function initFrameScrub() {
+  const section  = document.getElementById('procesoReel');
+  const canvas   = document.getElementById('procesoCanvas');
+  const bar      = document.getElementById('fscrubBar');
+  if (!section || !canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const TOTAL = 122;
+  const BASE  = 'obras/frames/frame';
+  const imgs  = new Array(TOTAL);
+  let loaded  = 0;
+  let W = 0, H = 0;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth  || window.innerWidth;
+    H = canvas.height = canvas.offsetHeight || window.innerHeight;
+    render();
+  }
+
+  function getProgress() {
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    const scrollable = section.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    return Math.max(0, Math.min(1, (window.scrollY - top) / scrollable));
+  }
+
+  function drawFrame(img) {
+    if (!img || !img.complete || !W || !H) return;
+    const iAR = img.naturalWidth / img.naturalHeight;
+    const cAR = W / H;
+    let dw, dh;
+    if (iAR > cAR) { dh = H; dw = dh * iAR; }
+    else            { dw = W; dh = dw / iAR; }
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+  }
+
+  function render() {
+    if (!W || !H) return;
+    const p = getProgress();
+    const idx = Math.min(Math.round(p * (TOTAL - 1)), TOTAL - 1);
+    if (bar) bar.style.transform = `scaleX(${p})`;
+    const img = imgs[idx];
+    if (img && img.complete && img.naturalWidth) {
+      drawFrame(img);
+    } else if (idx > 0) {
+      // fallback al frame anterior cargado
+      for (let i = idx - 1; i >= 0; i--) {
+        if (imgs[i] && imgs[i].complete && imgs[i].naturalWidth) { drawFrame(imgs[i]); break; }
+      }
+    }
+  }
+
+  let queued = false;
+  function schedule() {
+    if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; render(); }); }
+  }
+  window.__fsSchedule = schedule;
+
+  // Precargar todos los frames
+  for (let i = 0; i < TOTAL; i++) {
+    const n = String(i + 1).padStart(3, '0');
+    const img = new Image();
+    img.onload = () => { loaded++; if (loaded === 1) { resize(); } else { render(); } };
+    img.src = `${BASE}${n}.jpg`;
+    imgs[i] = img;
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+}
+
 /* ===== NAV SCROLL ===== */
 function initNav() {
   const nav = document.querySelector('.nav');
@@ -327,6 +400,7 @@ function initLenis() {
   });
   function raf(time) {
     lenisInstance.raf(time);
+    window.__fsSchedule && window.__fsSchedule();
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
@@ -2296,6 +2370,7 @@ function initPhotoSim() {
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initSlideshow();
+  initFrameScrub();
   initNav();
   initReveal();
   initFilters();
