@@ -76,16 +76,23 @@ function initFrameScrub() {
   }
   window.__fsSchedule = schedule;
 
-  // Precargar todos los frames
-  for (let i = 0; i < TOTAL; i++) {
-    const n = String(i + 1).padStart(3, '0');
-    const img = new Image();
-    img.onload = () => { loaded++; if (loaded === 1) { resize(); } else { render(); } };
-    img.src = `${BASE}${n}.jpg`;
-    imgs[i] = img;
-  }
-
   window.addEventListener('resize', resize, { passive: true });
+
+  // Solo cargar frames cuando la sección está cerca de ser visible
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      observer.disconnect();
+      for (let i = 0; i < TOTAL; i++) {
+        const n = String(i + 1).padStart(3, '0');
+        const img = new Image();
+        img.onload = () => { loaded++; if (loaded === 1) { resize(); } else { render(); } };
+        img.src = `${BASE}${n}.jpg`;
+        imgs[i] = img;
+      }
+    }
+  }, { rootMargin: '400px' });
+  observer.observe(section);
+
   resize();
 }
 
