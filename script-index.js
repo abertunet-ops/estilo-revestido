@@ -19,6 +19,8 @@ function initSlideshow() {
 
 /* ===== FRAME SCROLL SCRUB ===== */
 function initFrameScrub() {
+  // Skip on mobile: 122 frames (~11 MB) would crush mobile network performance
+  if (window.matchMedia('(max-width: 768px)').matches) return;
   const section  = document.getElementById('procesoReel');
   const canvas   = document.getElementById('procesoCanvas');
   const bar      = document.getElementById('fscrubBar');
