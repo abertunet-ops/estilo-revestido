@@ -492,7 +492,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
 .fscrub-cta:hover { border-color: var(--gold); background: rgba(201,162,94,0.10); }
 @media (max-width: 768px) {
   .fscrub-section { height: auto; min-height: 480px; }
-  .fscrub-sticky { position: relative; height: 480px; }
+  .fscrub-sticky { position: relative; height: 480px; background-image: url('obras/frame-mobile-fallback.webp'); background-size: cover; background-position: center; }
   .fscrub-canvas { display: none; }
   .fscrub-prog-wrap { display: none; }
   .fscrub-overlay { padding: 28px 20px 32px; background: linear-gradient(180deg, rgba(6,5,4,0.7) 0%, rgba(6,5,4,0.5) 50%, rgba(6,5,4,0.85) 100%); }
