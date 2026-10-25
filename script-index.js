@@ -19,12 +19,54 @@ function initSlideshow() {
 
 /* ===== FRAME SCROLL SCRUB ===== */
 function initFrameScrub() {
-  // Skip on mobile: 122 frames (~11 MB) would crush mobile network performance
-  if (window.matchMedia('(max-width: 768px)').matches) return;
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const section  = document.getElementById('procesoReel');
-  const canvas   = document.getElementById('procesoCanvas');
   const bar      = document.getElementById('fscrubBar');
-  if (!section || !canvas) return;
+  if (!section) return;
+
+  if (isMobile) {
+    const video = document.getElementById('procesoVideo');
+    if (!video) return;
+    let sectionTop = 0, sectionScrollable = 0;
+    function cacheGeometry() {
+      sectionTop        = section.getBoundingClientRect().top + window.scrollY;
+      sectionScrollable = section.offsetHeight - window.innerHeight;
+    }
+    function getProgress() {
+      if (sectionScrollable <= 0) return 0;
+      return Math.max(0, Math.min(1, (window.scrollY - sectionTop) / sectionScrollable));
+    }
+    let rafQueued = false;
+    function onScroll() {
+      if (!rafQueued) {
+        rafQueued = true;
+        requestAnimationFrame(() => {
+          rafQueued = false;
+          const p = getProgress();
+          if (video.readyState >= 1) video.currentTime = p * video.duration;
+          if (bar) bar.style.transform = `scaleX(${p})`;
+        });
+      }
+    }
+    const mobileObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        mobileObserver.disconnect();
+        video.src = 'obras/obras-mobile.mp4';
+        video.load();
+        video.addEventListener('loadedmetadata', () => {
+          cacheGeometry();
+          onScroll();
+        });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', cacheGeometry, { passive: true });
+      }
+    }, { rootMargin: '200px' });
+    mobileObserver.observe(section);
+    return;
+  }
+
+  const canvas   = document.getElementById('procesoCanvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
   const TOTAL = 122;
