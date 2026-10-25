@@ -1,27 +1,18 @@
-﻿/* ===== HERO VIDEO SCROLL SCRUB ===== */
-function initHeroVideoScrub() {
-  const video = document.querySelector('.hero-video');
-  const section = document.getElementById('heroScroll');
-  if (!video || !section) return;
+﻿/* ===== HERO SLIDESHOW ===== */
+function initSlideshow() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const counter = document.querySelector('.slide-current');
+  if (!slides.length) return;
+  let current = 0;
 
-  function getProgress() {
-    const top = section.getBoundingClientRect().top;
-    const scrollable = section.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    return Math.max(0, Math.min(1, -top / scrollable));
+  function next() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+    if (counter) counter.textContent = String(current + 1).padStart(2, '0');
   }
 
-  function update() {
-    if (!video.duration) return;
-    const target = getProgress() * video.duration;
-    if (Math.abs(video.currentTime - target) > 0.033) {
-      video.currentTime = target;
-    }
-  }
-
-  video.addEventListener('loadedmetadata', update);
-  window.__heroUpdate = update;
-  window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+  setInterval(next, 5000);
 }
 
 /* ===== FRAME SCROLL SCRUB ===== */
@@ -411,7 +402,6 @@ function initLenis() {
   function raf(time) {
     lenisInstance.raf(time);
     window.__fsSchedule && window.__fsSchedule();
-    window.__heroUpdate && window.__heroUpdate();
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
@@ -2380,7 +2370,7 @@ function initPhotoSim() {
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
-  initHeroVideoScrub();
+  initSlideshow();
   initFrameScrub();
   initNav();
   initReveal();
