@@ -411,25 +411,13 @@ function initCalculator() {
   });
 }
 
-/* ===== LENIS SMOOTH SCROLL ===== */
+/* ===== SCROLL ===== */
 let lenisInstance = null;
 
 function initLenis() {
-  if (typeof Lenis === 'undefined') return;
-  lenisInstance = new Lenis({
-    duration: 1.25,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-  });
-  function raf(time) {
-    lenisInstance.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-  // Actualizar scrub solo cuando Lenis emite scroll real
-  lenisInstance.on('scroll', () => {
+  window.addEventListener('scroll', () => {
     window.__fsSchedule && window.__fsSchedule();
-  });
+  }, { passive: true });
 }
 
 /* ===== SHOWCASE PARALLAX ===== */
