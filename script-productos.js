@@ -5,17 +5,27 @@ function initFilters() {
   const btns = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.product-card[data-category]');
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.filter;
-      cards.forEach(card => {
-        const show = cat === 'all' || card.dataset.category === cat;
-        card.style.display = show ? '' : 'none';
-      });
+  function applyFilter(cat) {
+    btns.forEach(b => b.classList.remove('active'));
+    const active = document.querySelector(`.filter-btn[data-filter="${cat}"]`);
+    if (active) active.classList.add('active');
+    cards.forEach(card => {
+      const show = cat === 'all' || card.dataset.category === cat;
+      card.style.display = show ? '' : 'none';
     });
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
   });
+
+  // Activar filtro desde hash en URL (ej: productos/#wall-interior)
+  const hash = window.location.hash.slice(1);
+  if (hash && document.querySelector(`.filter-btn[data-filter="${hash}"]`)) {
+    applyFilter(hash);
+    const section = document.getElementById('productos');
+    if (section) setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
+  }
 }
 
 /* ===== CALCULATOR ===== */
