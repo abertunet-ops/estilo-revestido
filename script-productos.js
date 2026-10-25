@@ -39,6 +39,7 @@ const PRODUCTS_CALC = {
   // Placas PVC
   'placa-marmol':       { name: 'Placa PVC Simil Mármol',         price: 66759,  m2: 3.42,  unit: 'placa' },
   'placa-piedra':       { name: 'Placa PVC Simil Piedra',         price: 101908, m2: 3.42,  unit: 'placa' },
+  'piedra-flexible':    { name: 'Piedra Natural Flexible',        price: 57030,  m2: 0.72,  unit: 'placa' },
   // Placas 3D
   'placa-3d':           { name: 'Placa 3D PVC',                   price: 6895,   m2: 0.25,  unit: 'unidad' },
   // Pisos SPC (precio por m²)
