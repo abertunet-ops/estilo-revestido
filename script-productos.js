@@ -553,43 +553,101 @@ const PRODUCT_DESCRIPTIONS = {
   // ── Placas PVC – colores ──────────────────────────────────────────────────
   'placa-pvc-carrara': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color Carrara: mármol clásico blanco con vetas grises naturales. El diseño más elegante y atemporal de la línea. Perfecto para baños, cocinas y living.']
+    textExtra: ['Color Carrara: mármol clásico blanco con vetas grises naturales. El diseño más elegante y atemporal de la línea. Perfecto para baños, cocinas y living.'],
+    specExtra: [['Color', 'Carrara']]
   },
   'placa-pvc-carrara-black': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color Carrara Black: fondo oscuro profundo con vetas doradas y grises. Sofisticación máxima para ambientes de lujo y locales premium.']
+    textExtra: ['Color Carrara Black: fondo oscuro profundo con vetas doradas y grises. Sofisticación máxima para ambientes de lujo y locales premium.'],
+    specExtra: [['Color', 'Carrara Black']]
   },
   'placa-pvc-marmol-blanco': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color Mármol Blanco: blanco nacarado con vetas sutiles. Luminoso y atemporal. Amplía visualmente cualquier espacio.']
+    textExtra: ['Color Mármol Blanco: blanco nacarado con vetas sutiles. Luminoso y atemporal. Amplía visualmente cualquier espacio.'],
+    specExtra: [['Color', 'Mármol Blanco']]
   },
   'placa-pvc-marmol-negro': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color Mármol Negro: negro profundo con vetas doradas. Elegancia absoluta para TV walls, fondos de cama y locales de alto impacto.']
+    textExtra: ['Color Mármol Negro: negro profundo con vetas doradas. Elegancia absoluta para TV walls, fondos de cama y locales de alto impacto.'],
+    specExtra: [['Color', 'Mármol Negro']]
   },
   'placa-pvc-all-white': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color All White: blanco liso y puro, sin vetas. Minimalismo total. Ideal para diseños donde el color es protagonista o para espacios reducidos.']
+    textExtra: ['Color All White: blanco liso y puro, sin vetas. Minimalismo total. Ideal para diseños donde el color es protagonista o para espacios reducidos.'],
+    specExtra: [['Color', 'All White']]
   },
   'placa-pvc-all-black': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color All Black: negro liso y mate. Contraste dramático para TV walls, locales y ambientes modernos de alto impacto visual.']
+    textExtra: ['Color All Black: negro liso y mate. Contraste dramático para TV walls, locales y ambientes modernos de alto impacto visual.'],
+    specExtra: [['Color', 'All Black']]
   },
   'placa-pvc-gray': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color Gray: gris cemento liso. Estilo industrial y contemporáneo. Combina perfecto con maderas, metales y cualquier paleta de color.']
+    textExtra: ['Color Gray: gris cemento liso. Estilo industrial y contemporáneo. Combina perfecto con maderas, metales y cualquier paleta de color.'],
+    specExtra: [['Color', 'Gray']]
   },
   'placa-pvc-jura-beige': {
     base: 'placa-pvc-simil-piedra',
-    textExtra: ['Color Jura Beige: piedra Jura en tono beige cálido. Textura natural con vetas pronunciadas. Ideal para paredes de acento y baños con estilo rústico-moderno.']
+    textExtra: ['Color Jura Beige: piedra Jura en tono beige cálido. Textura natural con vetas pronunciadas. Ideal para paredes de acento y baños con estilo rústico-moderno.'],
+    specExtra: [['Color', 'Jura Beige']]
   },
   'placa-pvc-jura-gray': {
     base: 'placa-pvc-simil-piedra',
-    textExtra: ['Color Jura Gray: piedra Jura en gris frío. Textura rústica con elegancia contemporánea. Sin juntas visibles, impermeable, fácil instalación.']
+    textExtra: ['Color Jura Gray: piedra Jura en gris frío. Textura rústica con elegancia contemporánea. Sin juntas visibles, impermeable, fácil instalación.'],
+    specExtra: [['Color', 'Jura Gray']]
   },
   'placa-pvc-mica': {
     base: 'placa-pvc-simil-marmol',
-    textExtra: ['Color Mica: efecto mica con destellos metalizados sutiles. Único y exclusivo. Para ambientes que buscan un look diferente y lujoso sin perder sobriedad.']
+    textExtra: ['Color Mica: efecto mica con destellos metalizados sutiles. Único y exclusivo. Para ambientes que buscan un look diferente y lujoso sin perder sobriedad.'],
+    specExtra: [['Color', 'Mica']]
+  },
+
+  // ── Piedra Natural Flexible – colores ─────────────────────────────────────
+  'piedra-natural-flexible-travertino': {
+    base: 'piedra-natural-flexible',
+    specExtra: [['Color', 'Travertino Beige']]
+  },
+  'piedra-natural-flexible-travertino-roma': {
+    base: 'piedra-natural-flexible',
+    textExtra: ['Travertino Roma: tonos cálidos terrosos con vetas naturales intensas. Cada placa es única e irrepetible.'],
+    specExtra: [['Color', 'Travertino Roma']]
+  },
+  'piedra-natural-flexible-rust-gray': {
+    base: 'piedra-natural-flexible',
+    textExtra: ['Rust Gray: gris oxidado con tonalidades frías y textura rugosa auténtica. Ideal para ambientes industriales y modernos.'],
+    specExtra: [['Color', 'Rust Gray']]
+  },
+
+  // ── Tirantes WPC 90×40 – colores ──────────────────────────────────────────
+  'tirante-wpc-90-40mm-almond': {
+    base: 'tirante-wpc-90-40mm',
+    specExtra: [['Color', 'Almond']]
+  },
+  'tirante-wpc-90-40mm-jade': {
+    base: 'tirante-wpc-90-40mm',
+    specExtra: [['Color', 'Jade']]
+  },
+  'tirante-wpc-90-40mm-peach': {
+    base: 'tirante-wpc-90-40mm',
+    specExtra: [['Color', 'Peach']]
+  },
+  'tirante-wpc-90-40mm-black': {
+    base: 'tirante-wpc-90-40mm',
+    specExtra: [['Color', 'Black']]
+  },
+
+  // ── Tirantes WPC 30×40 – colores ──────────────────────────────────────────
+  'tirante-wpc-30-40mm-jade': {
+    base: 'tirante-wpc-30x40mm',
+    specExtra: [['Color', 'Jade']]
+  },
+  'tirante-wpc-30-40mm-peach': {
+    base: 'tirante-wpc-30x40mm',
+    specExtra: [['Color', 'Peach']]
+  },
+  'tirante-wpc-30-40mm-almond': {
+    base: 'tirante-wpc-30x40mm',
+    specExtra: [['Color', 'Almond']]
   },
 
   // ── Placas 3D ────────────────────────────────────────────────────────────
@@ -686,7 +744,7 @@ function renderFullDesc(descData, fallbackText) {
   if (!descData) return `<p>${fallbackText}</p>`;
   const base = descData.base ? PRODUCT_DESCRIPTIONS[descData.base] : descData;
   const texts = [...(base.text || []), ...(descData.textExtra || [])];
-  const specs = base.specs || [];
+  const specs = [...(base.specs || []), ...(descData.specExtra || [])];
 
   let html = texts.map(t => `<p>${t}</p>`).join('');
   if (specs.length) {

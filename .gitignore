@@ -1,2 +1,8 @@
+node_modules/
+package-lock.json
+package.json
+*.tmp
+.claude/
 *.pdf
 Recibos/
+dominio web/
