@@ -28,18 +28,26 @@ function initFrameScrub() {
   const imgs  = new Array(TOTAL);
   let loaded  = 0;
   let W = 0, H = 0;
+  let sectionTop = 0, sectionScrollable = 0;
+
+  function cacheGeometry() {
+    sectionTop        = section.getBoundingClientRect().top + window.scrollY;
+    sectionScrollable = section.offsetHeight - window.innerHeight;
+  }
 
   function resize() {
-    W = canvas.width  = canvas.offsetWidth  || window.innerWidth;
-    H = canvas.height = canvas.offsetHeight || window.innerHeight;
+    // Leer antes de escribir para evitar forced reflow
+    const w = canvas.offsetWidth  || window.innerWidth;
+    const h = canvas.offsetHeight || window.innerHeight;
+    W = canvas.width  = w;
+    H = canvas.height = h;
+    cacheGeometry();
     render();
   }
 
   function getProgress() {
-    const top = section.getBoundingClientRect().top + window.scrollY;
-    const scrollable = section.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    return Math.max(0, Math.min(1, (window.scrollY - top) / scrollable));
+    if (sectionScrollable <= 0) return 0;
+    return Math.max(0, Math.min(1, (window.scrollY - sectionTop) / sectionScrollable));
   }
 
   function drawFrame(img) {
@@ -434,25 +442,24 @@ function initShowcaseParallax() {
     item._my = 0;
   });
 
-  function getScrollY(item) {
-    const rect = item.getBoundingClientRect();
+  function getScrollY(rect) {
     const viewH = window.innerHeight;
     const progress = 1 - (rect.bottom / (viewH + rect.height));
     return (progress - 0.5) * 110;
   }
 
-  function applyTransform(item) {
+  function applyTransform(item, rect) {
     const bg = item.querySelector('.showcase-bg');
     if (!bg) return;
-    const sy = getScrollY(item);
-    bg.style.transform = `translate(${item._mx}px, ${sy + item._my}px)`;
+    const r = rect || item.getBoundingClientRect();
+    bg.style.transform = `translate(${item._mx}px, ${getScrollY(r) + item._my}px)`;
   }
 
   function onScroll() {
     items.forEach(item => {
       const rect = item.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      applyTransform(item);
+      applyTransform(item, rect);
     });
   }
 
@@ -463,7 +470,7 @@ function initShowcaseParallax() {
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       item._mx = x * 22;
       item._my = y * 14;
-      applyTransform(item);
+      applyTransform(item, rect);
     });
 
     item.addEventListener('mouseleave', () => {
