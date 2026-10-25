@@ -55,10 +55,15 @@ function initFrameScrub() {
         video.load();
         video.addEventListener('loadedmetadata', () => {
           cacheGeometry();
-          onScroll();
+          // iOS Safari requiere play/pause para habilitar el seek de frames individuales
+          video.play().then(() => {
+            video.pause();
+            video.currentTime = 0;
+            onScroll();
+          }).catch(() => { onScroll(); });
         });
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', cacheGeometry, { passive: true });
+        window.addEventListener('resize', () => { cacheGeometry(); onScroll(); }, { passive: true });
       }
     }, { rootMargin: '200px' });
     mobileObserver.observe(section);
