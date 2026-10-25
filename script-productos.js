@@ -19,10 +19,10 @@ function initFilters() {
     btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
   });
 
-  // Activar filtro desde hash en URL (ej: productos/#wall-interior)
-  const hash = window.location.hash.slice(1);
-  if (hash && document.querySelector(`.filter-btn[data-filter="${hash}"]`)) {
-    applyFilter(hash);
+  // Activar filtro desde query param (ej: productos/?filtro=wall-interior)
+  const filtro = new URLSearchParams(window.location.search).get('filtro');
+  if (filtro && document.querySelector(`.filter-btn[data-filter="${filtro}"]`)) {
+    applyFilter(filtro);
     const section = document.getElementById('productos');
     if (section) setTimeout(() => section.scrollIntoView({ behavior: 'smooth' }), 100);
   }
