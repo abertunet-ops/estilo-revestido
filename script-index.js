@@ -148,7 +148,7 @@ function initFrameScrub() {
         for (; i < end; i++) {
           const n = String(i + 1).padStart(3, '0');
           const img = new Image();
-          img.onload = () => { loaded++; if (loaded === 1) { resize(); } else { render(); } };
+          img.onload = () => { loaded++; render(); };
           img.src = `${BASE}${n}.jpg`;
           imgs[i] = img;
         }
