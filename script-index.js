@@ -117,6 +117,8 @@ function initFrameScrub() {
 
 /* ===== SHOWCASE PARALLAX ===== */
 function initShowcaseParallax() {
+  // Skip on mobile: mouse parallax is irrelevant and getBoundingClientRect on scroll causes forced reflow
+  if (window.matchMedia('(max-width: 768px)').matches) return;
   const items = document.querySelectorAll('.showcase-item');
   if (!items.length) return;
 
