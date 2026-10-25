@@ -78,19 +78,26 @@ function initFrameScrub() {
 
   window.addEventListener('resize', resize, { passive: true });
 
-  // Solo cargar frames cuando la sección está cerca de ser visible
+  // Cargar frames en lotes cuando la sección se acerque al viewport
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
       observer.disconnect();
-      for (let i = 0; i < TOTAL; i++) {
-        const n = String(i + 1).padStart(3, '0');
-        const img = new Image();
-        img.onload = () => { loaded++; if (loaded === 1) { resize(); } else { render(); } };
-        img.src = `${BASE}${n}.jpg`;
-        imgs[i] = img;
+      const BATCH = 8;
+      let i = 0;
+      function loadBatch() {
+        const end = Math.min(i + BATCH, TOTAL);
+        for (; i < end; i++) {
+          const n = String(i + 1).padStart(3, '0');
+          const img = new Image();
+          img.onload = () => { loaded++; if (loaded === 1) { resize(); } else { render(); } };
+          img.src = `${BASE}${n}.jpg`;
+          imgs[i] = img;
+        }
+        if (i < TOTAL) setTimeout(loadBatch, 0);
       }
+      loadBatch();
     }
-  }, { rootMargin: '400px' });
+  }, { rootMargin: '150px' });
   observer.observe(section);
 
   resize();
@@ -408,10 +415,13 @@ function initLenis() {
   });
   function raf(time) {
     lenisInstance.raf(time);
-    window.__fsSchedule && window.__fsSchedule();
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
+  // Actualizar scrub solo cuando Lenis emite scroll real
+  lenisInstance.on('scroll', () => {
+    window.__fsSchedule && window.__fsSchedule();
+  });
 }
 
 /* ===== SHOWCASE PARALLAX ===== */
@@ -1780,6 +1790,7 @@ function initSimulator() {
 
 /* ===== SIMULA TU FOTO ===== */
 function initPhotoSim() {
+  if (!document.getElementById('sfCanvas')) return;
 
   /* ---- Texture config per product ---- */
   const SF_CFG = {
