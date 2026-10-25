@@ -440,6 +440,7 @@ function initShowcaseParallax() {
   items.forEach(item => {
     item._mx = 0;
     item._my = 0;
+    item._bg = item.querySelector('.showcase-bg');
   });
 
   function getScrollY(rect) {
@@ -449,15 +450,17 @@ function initShowcaseParallax() {
   }
 
   function applyTransform(item, rect) {
-    const bg = item.querySelector('.showcase-bg');
-    if (!bg) return;
+    if (!item._bg) return;
     const r = rect || item.getBoundingClientRect();
-    bg.style.transform = `translate(${item._mx}px, ${getScrollY(r) + item._my}px)`;
+    item._bg.style.transform = `translate(${item._mx}px, ${getScrollY(r) + item._my}px)`;
   }
 
   function onScroll() {
-    items.forEach(item => {
-      const rect = item.getBoundingClientRect();
+    // Primero todos los reads (un solo flush de layout)
+    const rects = Array.from(items).map(item => item.getBoundingClientRect());
+    // Luego todos los writes (sin forzar layout)
+    items.forEach((item, i) => {
+      const rect = rects[i];
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
       applyTransform(item, rect);
     });
