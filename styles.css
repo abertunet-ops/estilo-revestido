@@ -104,6 +104,9 @@ h1, h2, h3, h4 { font-family: var(--font-serif); line-height: 1.2; }
   color: var(--text-dim);
   transition: color 0.3s;
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 4px;
 }
 .nav-links a:hover { color: var(--gold); }
 .nav-right { display: flex; align-items: center; gap: 16px; }
@@ -1475,6 +1478,11 @@ footer p { font-size: 0.8rem; color: var(--text-dim); }
     right: 24px;
     font-size: 1.5rem;
     color: var(--text-dim);
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
