@@ -1032,58 +1032,10 @@ function initProductModal() {
   });
 }
 
-/* ===== SIMULADOR DE AMBIENTES ===== */
+/* ===== SIMULADOR DE AMBIENTES — SIM_CATALOG, SIM_COMBOS e initSimulator en script-shared.js ===== */
 
-const SIM_CATALOG = {
-  // --- Paredes interiores ---
-  'wi-dark':    { label: 'Wall Panel Oscuro',     img: 'Wall panel interior/dark panel.jpg',   price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  'wi-gray':    { label: 'Wall Panel Gris',        img: 'Wall panel interior/gray panel.jpg',   price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  'wi-sand':    { label: 'Wall Panel Arena',       img: 'Wall panel interior/sand.jpg',         price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  'wi-white':   { label: 'Wall Panel Blanco',      img: 'Wall panel interior/White.jpg',        price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  'wi-walnut':  { label: 'Wall Panel Nogal',       img: 'Wall panel interior/wallnut panel.jpg',price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  'wi-wfine':   { label: 'Wall Panel Nogal Fino',  img: 'Wall panel interior/Wallnut Fine.jpg', price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  'wi-black':   { label: 'Wall Panel Negro',       img: 'Wall panel interior/Black new.jpg',    price: 22699, m2: 0.36, surfaces: ['pared','techo'] },
-  // --- Paredes exteriores ---
-  'we-almond':  { label: 'Ext. Almond',            img: 'Wall panel Exterior/Almond.jpg',       price: 66767, m2: 0.36, surfaces: ['pared'] },
-  'we-jade':    { label: 'Ext. Jade',              img: 'Wall panel Exterior/Jade.jpg',         price: 66767, m2: 0.36, surfaces: ['pared'] },
-  'we-peach':   { label: 'Ext. Peach',             img: 'Wall panel Exterior/Peach.jpg',        price: 66767, m2: 0.36, surfaces: ['pared'] },
-  'we-maple':   { label: 'Ext. Maple Wood',        img: 'Wall panel Exterior/Maple Wood.jpg',   price: 66767, m2: 0.36, surfaces: ['pared'] },
-  // --- Placas PVC ---
-  'pm-mblanco': { label: 'Mármol Blanco',          img: 'Placas de pvc/marmol blanco.jpg',      price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-mnegro':  { label: 'Mármol Negro',           img: 'Placas de pvc/marmol negro.jpg',       price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-carrara': { label: 'Mármol Carrara',         img: 'Placas de pvc/carrara.jpg',            price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-gray':    { label: 'Placa Gris',             img: 'Placas de pvc/gray.jpg',               price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-white':      { label: 'Placa All White',     img: 'Placas de pvc/all white.jpg',          price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-ablack':     { label: 'Placa All Black',     img: 'Placas de pvc/All Black.jpg',          price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  'pm-travertino': { label: 'Travertino',          img: 'Placas de pvc/jura beige.jpg',         price: 81238, m2: 3.42, surfaces: ['pared','techo'] },
-  // --- Placas 3D ---
-  'p3-ondas':   { label: '3D Ondas',               img: 'Placas 3D/ondas.jpg',                  price:  6895, m2: 0.25, surfaces: ['pared'] },
-  'p3-rombo':   { label: '3D Rombo',               img: 'Placas 3D/rombo.jpg',                  price:  6895, m2: 0.25, surfaces: ['pared'] },
-  'p3-lineas':  { label: '3D Líneas',              img: 'Placas 3D/LINEAS.jpg',                 price:  6895, m2: 0.25, surfaces: ['pared'] },
-  // --- Pisos ---
-  'pv-ashdark': { label: 'Piso Ash Dark',          img: 'Pisos Vinilicos/ash dark.jpg',         price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-ashgray': { label: 'Piso Ash Gray',          img: 'Pisos Vinilicos/ash gray.jpg',         price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-roble':   { label: 'Piso Roble Classic',     img: 'Pisos Vinilicos/Roble classic.jpg',    price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-castano': { label: 'Piso Castaño Matiz',     img: 'Pisos Vinilicos/castaño matiz.jpg',    price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-lgray':   { label: 'Piso Light Gray',        img: 'Pisos Vinilicos/Light Gray.jpg',       price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-obsidian':{ label: 'Piso Obsidian White',    img: 'Pisos Vinilicos/Obsidian White.jpg',   price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-cotton':  { label: 'Piso Soft Cotton',       img: 'Pisos Vinilicos/Soft Cotton.jpg',      price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-marfil':  { label: 'Piso Marfil White',      img: 'Pisos Vinilicos/marfil White.jpg',     price: 36381, m2: 1, surfaces: ['piso'] },
-  'pv-paraiso': { label: 'Piso Paraíso',           img: 'Pisos Vinilicos/paraiso.jpg',          price: 36381, m2: 1, surfaces: ['piso'] },
-  // --- Zócalos ---
-  'z7-blanco':  { label: 'Zócalo EPS 7cm Blanco',  img: 'Zocalos eps/Zocalo Eps Blanco 7 cm + clip.jpg', price: 6005,  ml: 1, perMl: true, surfaces: ['zocalo'] },
-  'z10-blanco': { label: 'Zócalo EPS 10cm Blanco', img: 'Zocalos eps/Zocalo Eps Blanco 7 cm + clip.jpg', price: 9968,  ml: 1, perMl: true, surfaces: ['zocalo'] },
-};
-
-const SIM_COMBOS = [
-  { name: 'Moderno Oscuro',   pared: 'wi-dark',    techo: 'wi-black',    piso: 'pv-ashdark', zocalo: 'z7-blanco'  },
-  { name: 'Natural Madera',   pared: 'wi-walnut',  techo: 'wi-wfine',    piso: 'pv-roble',   zocalo: 'z7-blanco'  },
-  { name: 'Lujo Mármol',      pared: 'pm-mnegro',  techo: 'pm-mblanco',  piso: 'pv-obsidian',zocalo: 'z10-blanco' },
-  { name: 'Minimalista',      pared: 'wi-white',   techo: 'pm-white',    piso: 'pv-lgray',   zocalo: 'z7-blanco'  },
-  { name: 'Nórdico Gris',     pared: 'wi-gray',    techo: 'wi-gray',     piso: 'pv-cotton',  zocalo: 'z7-blanco'  },
-];
-
-function initSimulator() {
+// stub — no-op; real initSimulator is in script-shared.js
+function _initSimulatorStubProductos() {
   const overlay   = document.getElementById('simOverlay');
   const openBtn   = document.getElementById('simOpenBtn');
   const closeBtn  = document.getElementById('simClose');

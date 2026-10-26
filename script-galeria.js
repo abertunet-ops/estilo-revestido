@@ -600,20 +600,10 @@ function initPhotoSim() {
 /* ===== INIT ===== */
 document.addEventListener('DOMContentLoaded', () => {
   initLenis();
-  initSlideshow();
-  initFrameScrub();
   initNav();
   initReveal();
-  initFilters();
   initCart();
-  initCalculator();
-  initProductModal();
-  initShowcaseParallax();
   initSimulator();
   initPhotoSim();
   setTimeout(initTilt, 200);
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  initPhotoSim();
 });
