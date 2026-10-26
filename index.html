@@ -9,13 +9,66 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preload" as="image" href="Living.webp" fetchpriority="high">
   <style>
-    .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 6s ease}
-    .hero-slide.active{opacity:1;transform:scale(1)}
-    .hero-lcp-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}
+:root{--bg:#080705;--bg2:#0f0e0b;--bg3:#181510;--gold:#C9A25E;--gold2:#e8c47a;--gold-dim:rgba(201,162,94,0.15);--text:#f0ece4;--text-dim:#9a9080;--border:rgba(201,162,94,0.2);--card-bg:#111009;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Inter',system-ui,sans-serif;--radius:12px;--shadow:0 20px 60px rgba(0,0,0,0.6)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--font-sans);border:none;background:none}
+h1,h2,h3,h4{font-family:var(--font-serif);line-height:1.2}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:all 0.4s ease}
+.nav.scrolled{background:rgba(8,7,5,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:10px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:0 24px}
+.nav-logo{display:flex;align-items:center}
+.nav-logo-img{height:88px;width:auto;object-fit:contain;filter:invert(1);transition:opacity 0.3s}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:0.9rem;letter-spacing:0.5px;color:var(--text-dim);transition:color 0.3s;text-transform:uppercase;display:inline-flex;align-items:center;padding:12px 4px}
+.nav-right{display:flex;align-items:center;gap:16px}
+.cart-btn{position:relative;background:transparent;border:1px solid var(--border);border-radius:8px;padding:8px 16px;color:var(--text);font-size:0.9rem;display:flex;align-items:center;gap:8px;transition:all 0.3s}
+.cart-count{background:var(--gold);color:#000;border-radius:50%;width:20px;height:20px;display:none;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700}
+.cart-count.has-items{display:flex}
+.nav-menu-btn{display:none;flex-direction:column;gap:5px;padding:4px}
+.nav-menu-btn span{display:block;width:24px;height:2px;background:var(--text);transition:all 0.3s}
+.hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:center;overflow:hidden}
+.hero-slides{position:absolute;inset:0}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 6s ease}
+.hero-slide.active{opacity:1;transform:scale(1)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,7,5,0.88) 0%,rgba(8,7,5,0.55) 55%,rgba(8,7,5,0.72) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 24px}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;overflow:hidden}
+.eyebrow-line{display:block;width:48px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;animation:lineGrow 0.8s 0.3s ease forwards}
+@keyframes lineGrow{to{transform:scaleX(1)}}
+.eyebrow-text{font-size:0.78rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-12px);animation:fadeSlide 0.7s 0.6s ease forwards}
+.word-reveal{display:inline-block;opacity:0;transform:translateY(40px) skewY(3deg);animation:wordReveal 0.7s ease forwards}
+.word-reveal.delay-1{animation-delay:0.15s}
+.word-reveal.delay-2{animation-delay:0.3s}
+.word-reveal.delay-3{animation-delay:0.42s}
+.word-reveal.delay-4{animation-delay:0.54s}
+@keyframes wordReveal{to{opacity:1;transform:translateY(0) skewY(0)}}
+.hero-title{font-size:clamp(3.2rem,8vw,6.5rem);font-weight:700;line-height:1.0;margin-bottom:28px;max-width:780px;letter-spacing:-1px}
+.hero-title em{font-style:italic;color:var(--gold);-webkit-text-stroke:0px}
+.hero-desc-reveal{color:var(--text-dim);font-size:1rem;letter-spacing:2px;text-transform:uppercase;max-width:500px;margin-bottom:40px;opacity:0;animation:fadeSlide 0.7s 0.8s ease forwards}
+.hero-actions-reveal{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeSlide 0.7s 1s ease forwards}
+@keyframes fadeSlide{to{opacity:1;transform:translateX(0) translateY(0)}from{opacity:0;transform:translateY(16px)}}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-weight:700;font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;padding:16px 36px;border-radius:8px;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
+.btn-secondary{background:rgba(255,255,255,0.06);backdrop-filter:blur(8px);color:var(--text);font-weight:600;font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;padding:16px 36px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
+.slide-counter{position:absolute;right:40px;top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:0.75rem;color:var(--text-dim);letter-spacing:1px}
+.slide-sep{display:block;width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent)}
+.slide-current{color:var(--gold);font-weight:700}
+.hero-ticker{position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(201,162,94,0.12);backdrop-filter:blur(6px);border-top:1px solid rgba(201,162,94,0.25);overflow:hidden;padding:10px 0}
+.ticker-track{display:flex;gap:40px;white-space:nowrap;animation:ticker 28s linear infinite;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-scroll{position:absolute;bottom:56px;left:40px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-dim);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;writing-mode:vertical-rl}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollLine 2s ease infinite}
+@keyframes scrollLine{0%{opacity:1;transform:scaleY(1) translateY(0)}100%{opacity:0;transform:scaleY(0.5) translateY(20px)}}
+@media(max-width:900px){.nav-links{display:none}.nav-menu-btn{display:flex}}
+@media(max-width:768px){.slide-counter{display:none}.hero-scroll{left:16px;bottom:70px}.hero-title{font-size:clamp(2.6rem,10vw,4rem)}}
   </style>
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+  <link rel="preload" as="image" href="Living.webp" fetchpriority="high">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -94,9 +147,7 @@
 <section class="hero">
   <!-- Slideshow de fotos -->
   <div class="hero-slides">
-    <div class="hero-slide active">
-      <img src="Living.webp" alt="Wall Panel PVC La Plata — Estilo Revestido" class="hero-lcp-img" fetchpriority="high" width="1920" height="1080">
-    </div>
+    <div class="hero-slide active" style="background-image:url('Living.webp')"></div>
     <div class="hero-slide" style="background-image:url('Baño.webp')"></div>
     <div class="hero-slide" style="background-image:url('Habitacion .webp')"></div>
     <div class="hero-slide" style="background-image:url('exterior.webp')"></div>
