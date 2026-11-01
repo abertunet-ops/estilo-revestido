@@ -191,7 +191,7 @@ function initPhotoSim() {
       const img = new Image();
       img.onload = () => cb(img);
       img.onerror = () => { i++; next(); };
-      img.src = 'textures/' + key + '.' + exts[i++];
+      img.src = '/textures/' + key + '.' + exts[i++];
     }
     next();
   }
